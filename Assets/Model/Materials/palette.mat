@@ -42,13 +42,13 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 2800000, guid: 0ae57a237fd3e499eb49dfb9bc81469f, type: 3}
+        m_Texture: {fileID: 2800000, guid: b99d4f316ef7048a58af99272c34c537, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: ba278fdd4e6454368940f5466f51b04c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 070dfa658e7c64514956e1f583f41bf9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
