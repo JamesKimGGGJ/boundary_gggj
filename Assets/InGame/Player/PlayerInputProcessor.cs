@@ -39,6 +39,11 @@ public class PlayerInputProcessor : MonoBehaviour
 
     void Update()
     {
+        UpdateTransform();
+    }
+
+    void UpdateTransform()
+    {
         int x, y;
         GetMoveInput(out x, out y);
         if (x == 0 && y == 0) return;
@@ -48,8 +53,6 @@ public class PlayerInputProcessor : MonoBehaviour
 
         var v = rb.velocity;
         var newAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-        // var orgAngle = transform.localEulerAngles.z;
-        // var nextAngle = Mathf.LerpAngle(orgAngle, newAngle, Time.deltaTime);
         transform.localEulerAngles = new Vector3(0, 0, newAngle);
     }
 }

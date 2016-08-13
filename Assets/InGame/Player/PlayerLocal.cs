@@ -2,13 +2,25 @@ using UnityEngine;
 
 public class PlayerLocal : MonoBehaviour
 {
-    public PlayerId playerId;
+    private const float stormDistance = 15;
+    public int playerId;
+
+    void Update()
+    {
+        TryDestroyByStorm();
+    }
 
     public void Fire()
     {
         var item = PlayerItemManager.inst.Find(playerId);
         // TODO: network
         Debug.Log("fire: " + item);
+    }
+
+    void TryDestroyByStorm()
+    {
+        var distance = ((Vector2)transform.position).magnitude;
+        if (distance > stormDistance) Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
