@@ -29,12 +29,12 @@ public class Player : MonoBehaviour
 
         // TODO: set color from manager
         SetColor(PlayerColor.R);
-        OnSpawn(playerId);
+        if (OnSpawn != null) OnSpawn(playerId);
     }
 
     void OnDestroy()
     {
-        OnDie(playerId);
+        if (OnDie != null) OnDie(playerId);
     }
 
     public void SetColor(PlayerColor color)
