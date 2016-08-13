@@ -19,10 +19,12 @@ public class PlayerCtrl : MonoBehaviour {
 	}
 
 	void OnDestroy(){
+		/*
 		if (hostGameManager) 
 		{
 			hostGameManager.TryGameOverAfterUpdate();
 		}
+		*/
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
