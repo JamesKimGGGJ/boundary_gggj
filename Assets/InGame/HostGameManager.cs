@@ -1,18 +1,50 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-
+using System.Collections.Generic;
 public class HostGameManager : NetworkBehaviour {
 
+	private List<int> netIdList = new List<int>();
+
+	void Awake(){
+		ClientPlayer.OnPlayerSpawn += OnPlayerSpawn;
+		ClientPlayer.OnPlayerDie += OnPlayerDie;
+	}
 	// Use this for initialization
 	void Start () {
-		
+		if(isServer){
+			this.gameObject.SetActive(true);
+
+		}
+		else{
+			this.gameObject.SetActive(false);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(netIdList.Count);
 	}
 
+	void OnPlayerSpawn(int netId){
+		Debug.Log(netId + " Spawned");
+		netIdList.Add(netId);
+	}
+
+	void OnPlayerDie(int netId){
+		Debug.Log(netId + " Died");
+		netIdList.Remove(netId);
+		if (netIdList.Count == 1) {
+			int winnerId = netIdList.IndexOf (0);
+			Debug.Log (winnerId + " Won");
+
+		} else if (netIdList.Count == 0) {
+			Debug.Log ("No Player Exist");
+		}
+			
+	}
+
+/*
 	bool CheckGameOver(out int winner)
 	{
 		winner = -1;
@@ -53,4 +85,5 @@ public class HostGameManager : NetworkBehaviour {
 	{
 		Invoke("TryGameOver", 0.1f);
 	}
+	*/
 }
