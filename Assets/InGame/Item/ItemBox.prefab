@@ -36,9 +36,10 @@ GameObject:
   - 4: {fileID: 4000011305969536}
   - 114: {fileID: 114000010107880422}
   - 61: {fileID: 61000013533935022}
+  - 114: {fileID: 114000012781574374}
   m_Layer: 9
   m_Name: ItemBox
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,3 +195,35 @@ MonoBehaviour:
   itemType: 0
   rendererRoot: {fileID: 4000010938493344}
   rotateSpeed: {x: 60, y: 60, z: -60}
+--- !u!114 &114000012781574374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012971768350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 103
+    i1: 89
+    i2: 46
+    i3: 49
+    i4: 90
+    i5: 215
+    i6: 132
+    i7: 19
+    i8: 200
+    i9: 189
+    i10: 232
+    i11: 101
+    i12: 217
+    i13: 31
+    i14: 110
+    i15: 242
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
