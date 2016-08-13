@@ -9,8 +9,6 @@ public class Player : NetworkBehaviour
     public static event OnSpawnEvent OnSpawn;
     public delegate void OnDieEvent(int playerId);
     public static event OnDieEvent OnDie;
-    public delegate void OnFireEvent(int playerId);
-    public static event OnFireEvent OnFire;
 
     public NetworkIdentity networkId;
     public GameObject[] modelsByColor;
@@ -28,7 +26,8 @@ public class Player : NetworkBehaviour
             // && networkId.clientAuthorityOwner != null
             // playerId = networkId.clientAuthorityOwner.connectionId;
             // playerLocal.playerId = playerId;
-            gameObject.AddComponent<PlayerLocal>();
+            var playerLocal = gameObject.AddComponent<PlayerLocal>();
+            playerLocal.player = this;
 
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
@@ -66,15 +65,37 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdRequestFire()
+    public void CmdGetItem(ItemType itemType)
     {
-        RpcResponseFire();
+        RpcGetItem(serverPlayerId, itemType);
     }
 
     [ClientRpc]
-    private void RpcResponseFire()
+    private void RpcGetItem(int playerId, ItemType itemType)
+    {
+        PlayerItemManager.inst.RpcSet(playerId, itemType);
+        Debug.Log("item: " + itemType);
+    }
+
+    [Command]
+    public void CmdRequestFire()
+    {
+        var itemType = PlayerItemManager.inst.Find(serverPlayerId);
+        if (!itemType.HasValue)
+        {
+            Debug.LogWarning("trying to fire but no item");
+            return;
+        }
+
+        RpcResponseFire(serverPlayerId, itemType.Value);
+    }
+
+    [ClientRpc]
+    private void RpcResponseFire(int playerId, ItemType itemType)
     {
         // TODO: fire
-        Debug.Log("fire");
+        var orgItemType = PlayerItemManager.inst.FindAndUnSet(playerId);
+        if (itemType != orgItemType) Debug.LogWarning("item type does not match");
+        Debug.Log("fire: " + itemType);
     }
 }

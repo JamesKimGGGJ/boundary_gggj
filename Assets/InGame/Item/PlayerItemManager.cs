@@ -20,7 +20,8 @@ public class PlayerItemManager : NetworkBehaviour
         else Debug.LogError("inst null");
     }
 
-    public void Set(int playerId, ItemType itemType)
+    [ClientRpc]
+    public void RpcSet(int playerId, ItemType itemType)
     {
         if (itemType == ItemType.None)
         {
@@ -31,7 +32,8 @@ public class PlayerItemManager : NetworkBehaviour
         _items[playerId] = itemType;
     }
 
-    public void UnSet(int playerId)
+    [ClientRpc]
+    private void RpcUnSet(int playerId)
     {
         _items.Remove(playerId);
     }
@@ -47,7 +49,7 @@ public class PlayerItemManager : NetworkBehaviour
     public ItemType? FindAndUnSet(int playerId)
     {
         var ret = Find(playerId);
-        UnSet(playerId);
+        RpcUnSet(playerId);
         return ret;
     }
 

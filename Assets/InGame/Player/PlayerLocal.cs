@@ -3,18 +3,11 @@ using UnityEngine;
 public class PlayerLocal : MonoBehaviour
 {
     private const float stormDistance = 15;
-    public int playerId;
+    public Player player;
 
     void Update()
     {
         TryDestroyByStorm();
-    }
-
-    public void Fire()
-    {
-        var item = PlayerItemManager.inst.FindAndUnSet(playerId);
-        // TODO: network
-        Debug.Log("fire: " + item);
     }
 
     void TryDestroyByStorm()
@@ -33,8 +26,7 @@ public class PlayerLocal : MonoBehaviour
     private void OnCollideWithItem(ItemBox itemBox)
     {
         Debug.Log("get item: " + itemBox.itemType);
-        PlayerItemManager.inst.Set(playerId, itemBox.itemType);
-        // TODO: destroy on network
+        player.CmdGetItem(itemBox.itemType);
         Destroy(itemBox.gameObject);
     }
 }
