@@ -10,7 +10,7 @@ public class HostGameManager : NetworkBehaviour
     {
         if (alivePlayers.Contains(playerId))
         {
-            Debug.LogError("add same player guid: " + playerId);
+            Debug.LogWarning("add same player guid: " + playerId);
             return;
         }
 
@@ -27,7 +27,7 @@ public class HostGameManager : NetworkBehaviour
         }
         else if (alivePlayers.Count == 0)
         {
-            Debug.LogError("No Player Exist");
+            Debug.LogWarning("No Player Exist");
         }
     }
 
