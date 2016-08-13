@@ -2,10 +2,10 @@
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
+
 public class HostGameManager : NetworkBehaviour {
 
 	private List<int> netIdList = new List<int>();
-
 	void Awake(){
 		ClientPlayer.OnPlayerSpawn += OnPlayerSpawn;
 		ClientPlayer.OnPlayerDie += OnPlayerDie;
@@ -24,20 +24,30 @@ public class HostGameManager : NetworkBehaviour {
 			this.gameObject.SetActive(false);
 		}
 				
-		Debug.Log(netIdList.Count);
+		Debug.Log(netIdList.Count + " of players exist");
+
 	}
 
 	void OnPlayerSpawn(int netId){
-		Debug.Log(netId + " Spawned");
+		if (!isServer)
+			return;
+		Debug.Log("Player " + netId + " Spawned");
 		netIdList.Add(netId);
 	}
 
 	void OnPlayerDie(int netId){
-		Debug.Log(netId + " Died");
+		if (!isServer)
+			return;
+		Debug.Log("Player " + netId + " Died");
 		netIdList.Remove(netId);
 		if (netIdList.Count == 1) {
-			int winnerId = netIdList.IndexOf (0);
-			Debug.Log (winnerId + " Won");
+			int winnerId = -1;
+			for (int i = 0; i < netIdList.Count; i++) {
+				if (netIdList[i] != -1) {
+					winnerId = netIdList [i];
+				}
+			}
+			Debug.Log ("Player " + winnerId + " Won");
 
 		} else if (netIdList.Count == 0) {
 			Debug.Log ("No Player Exist");

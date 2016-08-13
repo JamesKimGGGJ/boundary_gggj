@@ -12,14 +12,18 @@ public class ClientPlayer : NetworkBehaviour {
 	private int clientNetId;
 
 	void Start () {
-		clientNetId = this.GetComponent<NetworkIdentity>().clientAuthorityOwner.connectionId;
-		OnPlayerSpawn(clientNetId);
+		if (isServer) {
+			clientNetId = this.GetComponent<NetworkIdentity> ().clientAuthorityOwner.connectionId;
+			OnPlayerSpawn (clientNetId);
+		}
 	}
 
 	void Update () {
 		var distance = ((Vector2)transform.position).magnitude;
-		if (distance > 15){			
+		if (distance > 15){
+			
 			Destroy(gameObject);
+
 		}	
 	}
 
