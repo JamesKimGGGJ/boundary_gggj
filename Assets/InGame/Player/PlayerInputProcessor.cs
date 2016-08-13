@@ -5,7 +5,7 @@ public enum PlayerControlScheme { Right, Left, }
 public class PlayerInputProcessor : MonoBehaviour
 {
     public PlayerControlScheme scheme;
-    public PlayerLocal playerLocal;
+    public Player player;
     public Rigidbody2D rb;
     public float force = 10;
 
@@ -25,7 +25,7 @@ public class PlayerInputProcessor : MonoBehaviour
             else if (Input.GetKey(KeyCode.RightArrow)) x = 1;
             if (Input.GetKey(KeyCode.DownArrow)) y = -1;
             else if (Input.GetKey(KeyCode.UpArrow)) y = 1;
-            if (Input.GetKey(KeyCode.Comma)) playerLocal.Fire();
+            if (Input.GetKey(KeyCode.Comma)) player.CmdRequestFire();
         }
         else
         {
@@ -33,7 +33,7 @@ public class PlayerInputProcessor : MonoBehaviour
             else if (Input.GetKey(KeyCode.D)) x = 1;
             if (Input.GetKey(KeyCode.S)) y = -1;
             else if (Input.GetKey(KeyCode.W)) y = 1;
-            if (Input.GetKey(KeyCode.Space)) playerLocal.Fire();
+            if (Input.GetKey(KeyCode.Space)) player.CmdRequestFire();
         }
     }
 

@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ItemBox : MonoBehaviour
+public class ItemBox : NetworkBehaviour
 {
+    [SyncVar]
     public ItemType itemType;
     public Transform rendererRoot;
     public Vector3 rotateSpeed;

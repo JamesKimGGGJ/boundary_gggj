@@ -12,7 +12,7 @@ public class PlayerLocal : MonoBehaviour
 
     public void Fire()
     {
-        var item = PlayerItemManager.inst.Find(playerId);
+        var item = PlayerItemManager.inst.FindAndUnSet(playerId);
         // TODO: network
         Debug.Log("fire: " + item);
     }
