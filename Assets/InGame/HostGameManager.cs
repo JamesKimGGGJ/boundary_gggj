@@ -12,17 +12,18 @@ public class HostGameManager : NetworkBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		if(isServer){
-			this.gameObject.SetActive(true);
 
-		}
-		else{
-			this.gameObject.SetActive(false);
-		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(isServer){
+			this.gameObject.SetActive(true);
+		}
+		else{
+			this.gameObject.SetActive(false);
+		}
+				
 		Debug.Log(netIdList.Count);
 	}
 
