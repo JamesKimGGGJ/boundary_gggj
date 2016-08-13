@@ -22,7 +22,7 @@ GameObject:
   - 114: {fileID: 114000011936735526}
   - 50: {fileID: 50000010892962438}
   - 61: {fileID: 61000011059255492}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DummyPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010571520072}
   - 96: {fileID: 96000012899404240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - 4: {fileID: 4000012784070716}
   - 33: {fileID: 33000010951675506}
   - 23: {fileID: 23000010507180700}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011183511018}
   - 96: {fileID: 96000011495329038}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010317095820}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010908863920}
   - 108: {fileID: 108000012189187086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,3 +405,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkId: {fileID: 0}
+  playerId: 0
+  modelsByColor: []

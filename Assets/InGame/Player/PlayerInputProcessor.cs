@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum PlayerControlScheme { Local1P, Local2P, }
+public enum PlayerControlScheme { Right, Left, }
 
 public class PlayerInputProcessor : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class PlayerInputProcessor : MonoBehaviour
         x = 0;
         y = 0;
 
-        if (scheme == PlayerControlScheme.Local1P)
+        if (scheme == PlayerControlScheme.Right)
         {
             if (Input.GetKey(KeyCode.LeftArrow)) x = -1;
             else if (Input.GetKey(KeyCode.RightArrow)) x = 1;

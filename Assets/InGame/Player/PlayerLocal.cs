@@ -11,15 +11,18 @@ public class PlayerLocal : MonoBehaviour
         Debug.Log("fire: " + item);
     }
 
-    void OnColliderEnter2D(Collider2D collider)
-    // private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         // TODO: network
-        if (collider.tag != "Item") return;
-        var itemBox = collider.GetComponent<ItemBox>();
+        if (collider.tag == "Item")
+            OnCollideWithItem(collider.GetComponent<ItemBox>());
+    }
+
+    private void OnCollideWithItem(ItemBox itemBox)
+    {
         Debug.Log("get item: " + itemBox.itemType);
         PlayerItemManager.inst.Set(playerId, itemBox.itemType);
         // TODO: destroy on network
-        Destroy(collider.gameObject);
+        Destroy(itemBox.gameObject);
     }
 }
