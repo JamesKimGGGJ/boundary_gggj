@@ -2,6 +2,8 @@ public enum ItemType
 {
     None,
     Rocket,
+    JetPack,
+    ColumnDrop,
 }
 
 public static partial class ItemHelper
