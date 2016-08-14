@@ -55,9 +55,10 @@ public class HostGameManager : NetworkBehaviour
         {
             Win(alivePlayers[0]);
         }
-        else if (alivePlayers.Count == 0)
+        else if (alivePlayers.Count <= 0)
         {
             Debug.LogWarning("No Player Exist");
+            Win(-1);
         }
     }
 

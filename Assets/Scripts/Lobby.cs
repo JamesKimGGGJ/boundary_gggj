@@ -90,6 +90,13 @@ public class Lobby : NetworkLobbyManager{
             GameObject.Find("button").GetComponent<UIButtonControl>().AllReady = allready;
         }
     }
+
+    void OnDestroy()
+    {
+        _playerId = int.MinValue;
+        _instance = null;
+    }
+
     private static int _playerId = int.MinValue;
     public static int playerId
     {

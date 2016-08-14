@@ -52,5 +52,12 @@ public class ClientGameManager : NetworkBehaviour
     {
         // TODO
         Debug.Log("winner is " + winnerId);
+        bool win = false;
+        try
+        {
+            win = (Lobby.playerId == winnerId);
+        }
+        catch{}
+        GameOver.instance.SetGameOver(win);
     }
 }
