@@ -4,7 +4,7 @@ public class PlayerInputProcessor : MonoBehaviour
 {
     public Player player;
     public Rigidbody2D rb;
-    public float force = 10;
+    public float force = 30;
 
     void Start()
     {

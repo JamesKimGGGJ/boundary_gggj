@@ -45,8 +45,8 @@ public class Rocket : NetworkBehaviour
         {
             var delta = player.transform.position - transform.position;
             var dist = delta.magnitude;
-            if (dist > 3) continue;
-            var impulse = (3 - dist) * delta.normalized * 8;
+            if (dist > 4) continue;
+            var impulse = (3 - dist) * delta.normalized * 30;
             player.CmdImpulse(impulse);
         }
 
