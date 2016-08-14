@@ -36,7 +36,6 @@ public class HUDPlayerItemPanel : MonoBehaviour
         var setFrames = new bool[4];
         foreach (var kv in PlayerItemManager.inst.Each())
         {
-            var netId = kv.Key;
             itemFrames[kv.Key].SetIcon(kv.Value);
             setFrames[kv.Key] = true;
         }

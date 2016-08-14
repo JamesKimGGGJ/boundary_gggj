@@ -40,7 +40,16 @@ public class Player : NetworkBehaviour
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
             SetCamera();
-            CmdBroadcastId(Lobby.playerId);
+            int id;
+            try
+            {
+                id = Lobby.playerId;
+            }
+            catch
+            {
+                id = 0;
+            }
+            CmdBroadcastId(id);
         }
     }
 
