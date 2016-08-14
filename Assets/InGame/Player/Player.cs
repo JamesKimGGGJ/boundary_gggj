@@ -16,6 +16,10 @@ public class Player : NetworkBehaviour
     public PlayerItemShooter itemShooter;
 
     public CameraMove mainCamera;
+    
+    public AudioClip[] audioclips;
+
+    private AudioSource audiosource;
 
     [HideInInspector]
     public int serverPlayerId;
@@ -24,7 +28,7 @@ public class Player : NetworkBehaviour
     {
         networkId = GetComponent<NetworkIdentity>();
         rb = GetComponent<Rigidbody2D>();
-
+        audiosource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -48,6 +52,33 @@ public class Player : NetworkBehaviour
     void OnDestroy()
     {
 		if (OnDie != null) OnDie(serverPlayerId, this.gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        // tag "Player"
+        if (coll.gameObject.tag == "Player")
+        {
+            audiosource.PlayOneShot(audioclips[0], 1.0f);
+        }
+        // layer number 12 : terrain
+        else if (coll.gameObject.layer == 12)
+        {
+            audiosource.PlayOneShot(audioclips[1], 1.0f);
+        }
+    }
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        // layer number 9 : item
+        if (coll.gameObject.layer == 9)
+        {
+            audiosource.PlayOneShot(audioclips[2], 0.08f);
+        }
+        // layer number 11 : projectile (missile)
+        else if (coll.gameObject.layer == 11)
+        {
+            audiosource.PlayOneShot(audioclips[3], 1.0f);
+        }
     }
 
     [ClientRpc]
