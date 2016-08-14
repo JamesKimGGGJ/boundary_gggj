@@ -8,6 +8,11 @@ public class UIButtonControl : MonoBehaviour {
     public Lobby lobby;
     public bool AllReady { get; set; }
     public bool start;
+    public string startStr;
+    public string readyStr;
+    public string secStr_0;
+    public string secStr_1;
+
     Text text;
     Button button;
     Messanger msg;
@@ -26,11 +31,11 @@ public class UIButtonControl : MonoBehaviour {
             if (!start) {
                 if (lobby.numPlayers > 0)
                 {
-                    text.text = "Start";
+                    text.text = startStr;
                     button.interactable = lobby.numPlayers > 1 ? AllReady : false;
                 }
                 else {
-                    text.text = "Ready";
+                    text.text = readyStr;
                     button.interactable = false;
                 }
             }
@@ -82,7 +87,7 @@ public class UIButtonControl : MonoBehaviour {
         start = true;
         button.interactable = false;
         for (remain = 5; remain > 0; remain--) {
-            text.text = "" + remain + "초 뒤 매칭된 폭풍으로 이동합니다.";
+            text.text = secStr_0 + remain + secStr_1;
             yield return new WaitForSeconds(1);
         }
         lobby.ServerChangeScene(lobby.playScene);
