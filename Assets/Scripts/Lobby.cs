@@ -35,13 +35,15 @@ public class Lobby : NetworkLobbyManager{
     }
 
     override public void OnMatchJoined(bool success, string extendedInfo, UnityEngine.Networking.Match.MatchInfo matchInfo) {
+        base.OnMatchJoined(success, extendedInfo, matchInfo);
         if (success)
         {
             Debug.Log("Joined Success");
-            Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
-            client = new NetworkClient();
-            client.RegisterHandler(MsgType.Connect, OnConnected);
-            client.Connect(matchInfo);
+            //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
+            //client = new NetworkClient();
+            //client.RegisterHandler(MsgType.Connect, OnConnected);
+            //client.Connect(matchInfo);
+
         }
             
     }
@@ -51,9 +53,32 @@ public class Lobby : NetworkLobbyManager{
     }
 
     override public void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo) {
+        base.OnMatchCreate(success, extendedInfo, matchInfo);
         Debug.Log("Create");
-        Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
-        NetworkServer.Listen(matchInfo, 9000);
+        //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
+        //NetworkServer.Listen(matchInfo, 7777);
+    }
+
+    public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
+    {
+        GameObject obj = base.OnLobbyServerCreateLobbyPlayer(conn, playerControllerId);
+        return obj;
+    }
+
+    public override void OnLobbyServerPlayersReady()
+    {
+        if (maxPlayers <= lobbySlots.Length)
+        {
+            bool allready = true;
+            for (int i = 0; i < lobbySlots.Length; ++i)
+            {
+                if (lobbySlots[i] != null)
+                    allready &= lobbySlots[i].readyToBegin;
+            }
+
+            if (allready)
+               ServerChangeScene(playScene);
+        }
     }
 
     void Start()
@@ -64,7 +89,16 @@ public class Lobby : NetworkLobbyManager{
     {
         if(hello > 100)
         {
-            //Debug.Log(numPlayers);
+            Debug.Log(numPlayers);
+            /*if (maxPlayers <= numPlayers)
+            {
+                //bool allready = true;
+
+                for (int i = 0; i < maxPlayers; i++) {
+                    lobbySlots[i].readyToBegin = true;
+                }
+                ServerChangeScene(playScene);
+            }*/
             hello -= 100;
         }
         else
