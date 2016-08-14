@@ -57,4 +57,11 @@ public class ClientGameManager : NetworkBehaviour
     {
         stormRadiusDecreaseEnabled = true;
     }
+
+    [ClientRpc]
+    public void RpcWin(int winnerId)
+    {
+        // TODO
+        Debug.Log("winner is " + winnerId);
+    }
 }

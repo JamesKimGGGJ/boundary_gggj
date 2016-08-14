@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 
 public class HostGameManager : NetworkBehaviour
 {
+    public static HostGameManager instance;
     public ClientGameManager clientGameManager;
     private const float stormRadiusDecreaseStartTime = 20;
     private readonly List<int> alivePlayers = new List<int>();
@@ -12,6 +13,7 @@ public class HostGameManager : NetworkBehaviour
 
     void Awake()
     {
+        instance = this;
         audiosrc = GetComponent<AudioSource>();
     }
     void Start()
@@ -35,6 +37,7 @@ public class HostGameManager : NetworkBehaviour
 
         alivePlayers.Add(playerId);
         players.Add(player);
+        Debug.Log("AlivePlayers : "+alivePlayers.Count);
 
         foreach (var kv in clientGameManager.connIdToPlayerOrder)
             clientGameManager.RpcBindConnIdAndPlayerOrder(kv.Key, kv.Value);
@@ -47,7 +50,10 @@ public class HostGameManager : NetworkBehaviour
         audiosrc.Play();
 
         Debug.Log("Player " + playerId + " Died");
-        alivePlayers.Remove(playerId);
+        Debug.Log("AlivePlayers : "+alivePlayers.Count);
+        if(!alivePlayers.Remove(playerId))
+            Debug.LogWarning("No player died but someone died");
+        
         players.Remove(player);
         if (alivePlayers.Count == 1)
         {
@@ -61,6 +67,6 @@ public class HostGameManager : NetworkBehaviour
 
     private void Win(int winnerId)
     {
-        GameMessagePasser.inst.RpcWin(winnerId);
+        clientGameManager.RpcWin(winnerId);
     }
 }

@@ -47,6 +47,7 @@ public class Player : NetworkBehaviour
     [Command]
     void CmdBroadcastId(int id)
     {
+        HostGameManager.instance.OnPlayerSpawn(serverPlayerId, gameObject);
         RpcInitialize(id);
     }
 
@@ -109,6 +110,7 @@ public class Player : NetworkBehaviour
     {
         // TODO:
         // effect
+        HostGameManager.instance.OnPlayerDie(serverPlayerId, gameObject);
         NetworkServer.Destroy(gameObject);
     }
 

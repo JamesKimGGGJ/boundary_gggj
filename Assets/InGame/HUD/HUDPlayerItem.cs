@@ -6,16 +6,16 @@ public class HUDPlayerItem : MonoBehaviour
     public Image frame;
     public Image icon;
 
-    public static Color GetColorByPlayerOrder(int playerOrder)
+    public static Color GetColorByPlayerOrder(int playerId)
     {
-        switch (playerOrder)
+        switch (playerId)
         {
-            case 1: return Color.red;
-            case 2: return Color.blue;
-            case 3: return Color.yellow;
-            case 4: return Color.green;
+            case 0: return Color.red;
+            case 1: return Color.blue;
+            case 2: return Color.green;
+            case 3: return Color.white;
             default:
-                Debug.LogWarning("undefined playerOrder: " + playerOrder);
+                Debug.LogWarning("undefined playerOrder: " + playerId);
                 return Color.white;
         }
     }

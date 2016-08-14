@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class HUDPlayerItemPanel : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class HUDPlayerItemPanel : MonoBehaviour
     void Start()
     {
         for (var i = 0; i != itemFrames.Length; ++i)
-            itemFrames[i].SetColorWithPlayerOrder(i + 1);
+        {
+            itemFrames[i].SetColorWithPlayerOrder(i);
+        }
     }
 
     void OnEnable()
@@ -34,23 +37,8 @@ public class HUDPlayerItemPanel : MonoBehaviour
         foreach (var kv in PlayerItemManager.inst.Each())
         {
             var netId = kv.Key;
-            var playerOrder = 0;
-
-            if (!ClientGameManager.inst.connIdToPlayerOrder.TryGetValue(netId, out playerOrder))
-            {
-                Debug.LogWarning("player order not found: " + netId);
-                continue;
-            }
-
-            if (playerOrder == 0 || playerOrder > 4 || playerOrder > itemFrames.Length)
-            {
-                Debug.LogWarning("index out of range: " + playerOrder);
-                continue;
-            }
-
-            var itemType = kv.Value;
-            itemFrames[playerOrder - 1].SetIcon(itemType);
-            setFrames[playerOrder - 1] = true;
+            itemFrames[kv.Key].SetIcon(kv.Value);
+            setFrames[kv.Key] = true;
         }
 
         for (var i = 0; i != setFrames.Length; ++i)

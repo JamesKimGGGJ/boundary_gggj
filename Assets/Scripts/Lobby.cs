@@ -8,16 +8,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Lobby : NetworkLobbyManager{
-    // private static Lobby _instance;
-    // public static Lobby instance
-    // {
-    //     get
-    //     {
-    //         if(_instance == null)
-    //             _instance = FindObjectOfType<Lobby>();
-    //         return _instance;
-    //     }
-    // }
+    private static Lobby _instance;
+    public static Lobby instance
+    {
+        get
+        {
+            if(_instance == null)
+                _instance = FindObjectOfType<Lobby>();
+            return _instance;
+        }
+    }
     public void CreateMatch() {
         StartMatchMaker();
         matchMaker.CreateMatch("Room384", 4,true, "", "", "", 0, 1, OnMatchCreate);
