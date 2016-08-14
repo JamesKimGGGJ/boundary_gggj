@@ -9,6 +9,8 @@ using System.Collections.Generic;
 
 public class Lobby : NetworkLobbyManager{
 
+    private int hello;
+
     public void CreateMatch() {
         StartMatchMaker();
         matchMaker.CreateMatch("Room", 4,true, "", "", "", 0, 1, OnMatchCreate);
@@ -34,11 +36,40 @@ public class Lobby : NetworkLobbyManager{
 
     override public void OnMatchJoined(bool success, string extendedInfo, UnityEngine.Networking.Match.MatchInfo matchInfo) {
         if (success)
+        {
             Debug.Log("Joined Success");
+            Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
+            client = new NetworkClient();
+            client.RegisterHandler(MsgType.Connect, OnConnected);
+            client.Connect(matchInfo);
+        }
+            
+    }
+
+    public void OnConnected(NetworkMessage msg) {
+        Debug.Log("Connected");
     }
 
     override public void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo) {
         Debug.Log("Create");
+        Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
+        NetworkServer.Listen(matchInfo, 9000);
     }
 
+    void Start()
+    {
+        hello = 0;
+    }
+    void Update()
+    {
+        if(hello > 100)
+        {
+            //Debug.Log(numPlayers);
+            hello -= 100;
+        }
+        else
+        {
+            hello++;
+        }
+    }
 }
