@@ -99,19 +99,13 @@ public class Player : NetworkBehaviour
         Debug.Log("item: " + itemType);
     }
 
-    public void RequestFire()
-    {
-        var itemType = PlayerItemManager.inst.Find(serverPlayerId);
-        if (!itemType.HasValue) return;
-        itemShooter.ShootMySide(itemType.Value);
-        CmdRequestFire(itemType.Value);
-    }
-
     [Command]
-    public void CmdRequestFire(ItemType itemType)
+    public void CmdRequestFire()
     {
-        itemShooter.ShootServerSide(itemType);
-        RpcResponseFire(serverPlayerId, itemType);
+        var itemType = PlayerItemManager.inst.FindAndUnSet(serverPlayerId);
+        if (!itemType.HasValue) return;
+        itemShooter.ShootServerSide(itemType.Value);
+        RpcResponseFire(serverPlayerId, itemType.Value);
     }
 
     [ClientRpc]
@@ -119,6 +113,7 @@ public class Player : NetworkBehaviour
     {
         var orgItemType = PlayerItemManager.inst.FindAndUnSet(playerId);
         if (itemType != orgItemType) Debug.LogWarning("item type does not match");
+        if (localPlayerAuthority) itemShooter.ShootMySide(itemType);
         itemShooter.ShootClientSide(itemType);
     }
 

@@ -26,7 +26,7 @@ public class PlayerInputProcessor : MonoBehaviour
     void Update()
     {
         UpdateTransform();
-        if (GetFireInput()) player.RequestFire();
+        if (GetFireInput()) player.CmdRequestFire();
     }
 
     void UpdateTransform()
