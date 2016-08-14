@@ -17,7 +17,7 @@ public class ItemSpawner : NetworkBehaviour
         while (true)
         {
             yield return new WaitForSeconds(SpawnPeriod);
-            Spawn();
+            if (isServer) Spawn();
         }
     }
 

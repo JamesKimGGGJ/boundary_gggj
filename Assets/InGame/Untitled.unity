@@ -300,7 +300,9 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1000012971768350, guid: 67592e315ad78413c8bde865d91f6ef2, type: 2}
+  - {fileID: 1000013357467202, guid: 147b956b029b344e183120ae64efa207, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -474,6 +476,10 @@ Prefab:
         type: 2}
       propertyPath: m_AssetId.i15
       value: 252
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013145213130, guid: b5b1c7c36eb634573a995557b218bffc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5b1c7c36eb634573a995557b218bffc, type: 2}
