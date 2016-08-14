@@ -42,6 +42,34 @@ public class PlayerRocketShooter : IPlayerItemShooter
 
 public class PlayerJetPackShooter : IPlayerItemShooter
 {
+    private const float speed = 8;
+    public void ShootClientSide(Player player)
+    {
+        // effect spawn
+        GameObject effect = EffectSpawner.instance.GetEffect("JetPack");
+        effect.transform.position = player.transform.position;
+        effect.transform.rotation = player.transform.rotation;
+        effect.SetActive(true);
+    }
+
+    public void ShootMySide(Player player)
+    {
+        // set velocity
+        var input = player.GetComponent<PlayerInputProcessor>();
+        if(input==null) throw new Exception("Player without Input used Item");
+        int x,y;
+        input.GetMoveInput(out x, out y);
+        player.rb.velocity = new Vector2(x,y).normalized * speed;
+    }
+
+    public void ShootServerSide(Player player)
+    {
+        // do nothing
+    }
+}
+
+public class PlayerColumnShooter : IPlayerItemShooter
+{
     public void ShootClientSide(Player player)
     {
         // effect spawn
@@ -50,8 +78,7 @@ public class PlayerJetPackShooter : IPlayerItemShooter
 
     public void ShootMySide(Player player)
     {
-        // set velocity
-        throw new NotImplementedException();
+        // do nothing
     }
 
     public void ShootServerSide(Player player)
@@ -59,6 +86,7 @@ public class PlayerJetPackShooter : IPlayerItemShooter
         // do nothing
     }
 }
+
 
 public class PlayerItemShooter : MonoBehaviour
 {
@@ -69,7 +97,9 @@ public class PlayerItemShooter : MonoBehaviour
     void Awake()
     {
         shooters = new Dictionary<ItemType, IPlayerItemShooter>{
-             { ItemType.Rocket, new PlayerRocketShooter(prefabRocket) }
+             { ItemType.Rocket, new PlayerRocketShooter(prefabRocket) },
+             { ItemType.JetPack, new PlayerJetPackShooter() },
+             { ItemType.ColumnDrop, new PlayerColumnShooter() }
         };
     }
 

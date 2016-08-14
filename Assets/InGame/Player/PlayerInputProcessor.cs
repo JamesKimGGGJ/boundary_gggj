@@ -14,7 +14,7 @@ public class PlayerInputProcessor : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void GetMoveInput(out int x, out int y)
+    public void GetMoveInput(out int x, out int y)
     {
         x = 0;
         y = 0;
