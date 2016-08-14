@@ -675,6 +675,11 @@ MonoBehaviour:
   - {fileID: 1000012497805988}
   itemShooter: {fileID: 114000010777811332}
   mainCamera: {fileID: 0}
+  audioclips:
+  - {fileID: 8300000, guid: 4540c4e071555844fadf41d28631b704, type: 3}
+  - {fileID: 8300000, guid: b160cc1eb07fa8947b0c3c3b90be8a1d, type: 3}
+  - {fileID: 8300000, guid: 2dd83ae8bcb8d1d4192e49ad62ba3efc, type: 3}
+  - {fileID: 8300000, guid: 455575754e56b3c4eb2bff7d358dd7fe, type: 3}
   serverPlayerId: 0
 --- !u!114 &114000011963916780
 MonoBehaviour:
