@@ -4,14 +4,12 @@ using System.Collections;
 
 public class Messanger : NetworkBehaviour
 {
-    Lobby lobby;
     UIButtonControl bc;
     public int num;
     
     // Use this for initialization
 	void Start () {
-        lobby = GameObject.Find("UIObject").GetComponent<Lobby>();
-        bc = GameObject.Find("button").GetComponent<UIButtonControl>();
+        bc = GameObject.FindObjectOfType<UIButtonControl>();
         num = 0;
     }
 

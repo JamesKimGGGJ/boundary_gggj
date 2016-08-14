@@ -75,7 +75,6 @@ public class UIButtonControl : MonoBehaviour {
     public void startButton() {
         if (Ready)
         {
-            StartCoroutine(startGame());
             msg.RpcMeg(0,0);
         }
         else {
