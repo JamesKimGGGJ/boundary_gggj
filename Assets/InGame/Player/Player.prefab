@@ -667,6 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkId: {fileID: 114000010031772760}
+  rb: {fileID: 0}
   modelsByColor:
   - {fileID: 1000013610161446}
   - {fileID: 1000012389042990}

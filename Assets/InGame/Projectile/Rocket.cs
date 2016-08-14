@@ -53,7 +53,7 @@ public class Rocket : NetworkBehaviour
             var dist = delta.magnitude;
             if (dist > 3) continue;
             var impulse = (3 - dist) * delta.normalized * 8;
-            player.rb.AddForce(impulse, ForceMode2D.Impulse);
+            player.CmdImpulse(impulse);
         }
 
         CmdExplode();

@@ -26,5 +26,4 @@ public class ClientGameManager : NetworkBehaviour
     {
         stormRadiusDecreaseEnabled = true;
     }
-		
 }
