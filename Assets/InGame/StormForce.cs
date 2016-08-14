@@ -2,6 +2,8 @@
 
 public class StormForce : MonoBehaviour
 {
+    private const float stormRange = 15;
+    private const float multiplier = 6.6f;
     private Rigidbody2D rb;
 
     void Start()
@@ -23,14 +25,12 @@ public class StormForce : MonoBehaviour
         }
 
         var f = Vector2.zero;
-        var innerStormR = 0.7f * stormR;
-        if (radius < innerStormR)
+        var innerStormR = stormR - stormRange;
+        if (radius > innerStormR)
         {
-            f = 2 * fDir;
-        }
-        else
-        {
-            f = (2 + 10 * (radius - innerStormR)) * fDir;
+            float max = Mathf.Min(stormRange, stormR) * multiplier;
+            float force = max - (multiplier * (stormR - radius));
+            f = force * fDir;
         }
 
         rb.AddForceAtPosition(f, transform.position);
