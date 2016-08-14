@@ -6,6 +6,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	// Use this for initialization
 	void Start () {
+        DontDestroyOnLoad(transform.gameObject);
         if (isLocalPlayer)
             SendReadyToBeginMessage();
     }

@@ -26,6 +26,7 @@ public class Player : NetworkBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(transform.gameObject);
         networkId = GetComponent<NetworkIdentity>();
         rb = GetComponent<Rigidbody2D>();
         audiosource = GetComponent<AudioSource>();
