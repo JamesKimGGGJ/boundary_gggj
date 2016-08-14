@@ -32,8 +32,6 @@ public class PlayerInputProcessor : MonoBehaviour
     void UpdateTransform()
     {
         var move = GetMoveInput();
-        if (move.sqrMagnitude < 0.02f) return;
-
         var f = move * force;
         rb.AddForce(f);
 
