@@ -94,6 +94,8 @@ public class UIButtonControl : MonoBehaviour {
             text.text = secStr_0 + remain + secStr_1;
             yield return new WaitForSeconds(1);
         }
-        lobby.ServerChangeScene(lobby.playScene);
+
+        if (Network.isServer)
+            lobby.ServerChangeScene(lobby.playScene);
     }
 }
