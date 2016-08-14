@@ -1812,12 +1812,15 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1000010737157334, guid: a973b0ac408634f77b1cadc10232b30e,
+    type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: LobbyScene
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1000013357467202, guid: 147b956b029b344e183120ae64efa207, type: 2}
+  - {fileID: 1000012971768350, guid: 67592e315ad78413c8bde865d91f6ef2, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1866,7 +1869,7 @@ MonoBehaviour:
   m_MinPlayers: 2
   m_LobbyPlayerPrefab: {fileID: 114000011536006204, guid: 9f61f0737cd2aa849a5d2096979b6401,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 1000012546967672, guid: b22f0c7024d54d240b25ec43121116ef,
+  m_GamePlayerPrefab: {fileID: 1000010737157334, guid: a973b0ac408634f77b1cadc10232b30e,
     type: 2}
   m_LobbyScene: LobbyScene
   m_PlayScene: Untitled
