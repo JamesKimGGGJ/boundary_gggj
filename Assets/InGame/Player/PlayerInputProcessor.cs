@@ -25,21 +25,23 @@ public class PlayerInputProcessor : MonoBehaviour
 
     void Update()
     {
-        UpdateTransform();
         if (GetFireInput()) player.CmdRequestFire();
     }
 
-    void UpdateTransform()
+    void FixedUpdate()
+    {
+        FixedUpdateTransform();
+    }
+
+    void FixedUpdateTransform()
     {
         var move = GetMoveInput();
         var f = move * force;
         rb.AddForce(f);
 
         var v = rb.velocity;
-        if(Mathf.Abs(rb.angularVelocity)>50)
-        {
+        if (Mathf.Abs(rb.angularVelocity) > 50)
             return;
-        }
 
         var newAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.localEulerAngles = new Vector3(0, 0, newAngle);
