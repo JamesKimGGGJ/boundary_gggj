@@ -3,7 +3,7 @@ public enum ItemType
 {
     None,
     Rocket,
-    //JetPack,
+    JetPack,
     ColumnDrop,
 }
 
