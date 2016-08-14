@@ -474,7 +474,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2dd83ae8bcb8d1d4192e49ad62ba3efc, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.625
   m_Pitch: 1
@@ -730,6 +730,10 @@ MonoBehaviour:
   player: {fileID: 114000010816574490}
   prefabRocket: {fileID: 1000013357467202, guid: 147b956b029b344e183120ae64efa207,
     type: 2}
+  shootingSound:
+  - {fileID: 8300000, guid: 455575754e56b3c4eb2bff7d358dd7fe, type: 3}
+  - {fileID: 8300000, guid: 89acf2a8205fdd8449c39a6a94fb2c56, type: 3}
+  - {fileID: 8300000, guid: 78e38bd97a4f7274583f81e2d36c901f, type: 3}
 --- !u!114 &114000010816574490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -753,7 +757,7 @@ MonoBehaviour:
   audioclips:
   - {fileID: 8300000, guid: 4540c4e071555844fadf41d28631b704, type: 3}
   - {fileID: 8300000, guid: b160cc1eb07fa8947b0c3c3b90be8a1d, type: 3}
-  - {fileID: 8300000, guid: 2dd83ae8bcb8d1d4192e49ad62ba3efc, type: 3}
+  - {fileID: 8300000, guid: 76c1f323142098447b18c06758d8e07f, type: 3}
   - {fileID: 8300000, guid: 455575754e56b3c4eb2bff7d358dd7fe, type: 3}
   serverPlayerId: 0
 --- !u!114 &114000011963916780

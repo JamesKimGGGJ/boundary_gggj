@@ -14,10 +14,14 @@ public class PlayerRocketShooter : IPlayerItemShooter
 {
     private const float speed = 5;
     private readonly GameObject prefab;
+    private AudioClip ac;
+    private AudioSource ads;
 
-    public PlayerRocketShooter(GameObject prefab)
+    public PlayerRocketShooter(GameObject prefab, AudioClip audiocp, AudioSource audiosrc)
     {
         this.prefab = prefab;
+        ac = audiocp;
+        ads = audiosrc;
     }
 
     public void ShootServerSide(Player player)
@@ -35,6 +39,8 @@ public class PlayerRocketShooter : IPlayerItemShooter
     public void ShootClientSide(Player player)
     {
         // do nothing
+        ads.PlayOneShot(ac, 1.0f);
+
     }
 
     public void ShootMySide(Player player) { }
@@ -43,6 +49,16 @@ public class PlayerRocketShooter : IPlayerItemShooter
 public class PlayerJetPackShooter : IPlayerItemShooter
 {
     private const float speed = 8;
+    private AudioClip ac;
+    private AudioSource ads;
+
+    public PlayerJetPackShooter(AudioClip audiocp, AudioSource audiosrc)
+    {
+        ac = audiocp;
+        ads = audiosrc;
+    }
+
+
     public void ShootClientSide(Player player)
     {
         // effect spawn
@@ -50,6 +66,7 @@ public class PlayerJetPackShooter : IPlayerItemShooter
         effect.transform.position = player.transform.position;
         effect.transform.rotation = player.transform.rotation;
         effect.SetActive(true);
+        ads.PlayOneShot(ac, 1.0f);
     }
 
     public void ShootMySide(Player player)
@@ -69,6 +86,15 @@ public class PlayerJetPackShooter : IPlayerItemShooter
 
 public class PlayerColumnShooter : IPlayerItemShooter
 {
+    private AudioClip ac;
+    private AudioSource ads;
+
+    public PlayerColumnShooter(AudioClip audiocp, AudioSource audiosrc)
+    {
+        ac = audiocp;
+        ads = audiosrc;
+    }
+
     public void ShootClientSide(Player player)
     {
         // effect spawn
@@ -76,6 +102,7 @@ public class PlayerColumnShooter : IPlayerItemShooter
         effect.transform.position = player.transform.position;
         effect.transform.rotation = Quaternion.Euler(0,0,UnityEngine.Random.Range(0f,360f));
         effect.SetActive(true);
+        ads.PlayOneShot(ac, 1.0f);
     }
 
     public void ShootMySide(Player player)
@@ -96,12 +123,16 @@ public class PlayerItemShooter : MonoBehaviour
     public GameObject prefabRocket;
     private Dictionary<ItemType, IPlayerItemShooter> shooters;
 
+    public AudioClip[] shootingSound;
+    private AudioSource audiosrc;
+
     void Awake()
     {
+        audiosrc = GetComponent<AudioSource>();
         shooters = new Dictionary<ItemType, IPlayerItemShooter>{
-             { ItemType.Rocket, new PlayerRocketShooter(prefabRocket) },
-             { ItemType.JetPack, new PlayerJetPackShooter() },
-             { ItemType.ColumnDrop, new PlayerColumnShooter() }
+             { ItemType.Rocket, new PlayerRocketShooter(prefabRocket, shootingSound[0], audiosrc) },
+             { ItemType.JetPack, new PlayerJetPackShooter(shootingSound[1], audiosrc) },
+             { ItemType.ColumnDrop, new PlayerColumnShooter(shootingSound[2], audiosrc) }
         };
     }
 
