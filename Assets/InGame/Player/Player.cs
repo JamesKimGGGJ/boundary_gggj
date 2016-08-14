@@ -21,9 +21,7 @@ public class Player : NetworkBehaviour
     public AudioClip[] audioclips;
 
     private AudioSource audiosource;
-
-    [HideInInspector]
-    public int serverPlayerId;
+    private int serverPlayerId;
 
     void Awake()
     {
@@ -35,19 +33,30 @@ public class Player : NetworkBehaviour
 
     void Start()
     {
-        if (networkId != null && networkId.clientAuthorityOwner != null)
-            serverPlayerId = networkId.clientAuthorityOwner.connectionId;
-
         if (networkId != null && networkId.isLocalPlayer)
         {
             var playerLocal = gameObject.AddComponent<PlayerLocal>();
             playerLocal.player = this;
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
-			StartCoroutine ("CameraSet");
+            SetCamera();
+            CmdBroadcastId(Lobby.playerId);
         }
+    }
 
-        if (OnSpawn != null) OnSpawn(serverPlayerId, this.gameObject);
+    [Command]
+    void CmdBroadcastId(int id)
+    {
+        RpcInitialize(id);
+    }
+
+    [ClientRpc]
+    void RpcInitialize(int id)
+    {
+        serverPlayerId = id;
+        SetColor(id);
+
+        if (OnSpawn != null) OnSpawn(id, this.gameObject);
     }
 
     void OnDestroy()
@@ -82,8 +91,7 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    public void RpcSetColor(PlayerColor color)
+    public void SetColorObject(PlayerColor color)
     {
         if (modelsByColor.Length <= (int)color)
         {
@@ -152,32 +160,18 @@ public class Player : NetworkBehaviour
         itemShooter.ShootClientSide(itemType);
     }
 
-    [Command]
-    public void CmdConnId()
-    {
-        var connId = networkId.clientAuthorityOwner.connectionId;
-        RpcConnId(networkId, connId);
-    }
-
-    [ClientRpc]
-    private void RpcConnId(NetworkIdentity netId, int connId)
-    {
-        if (networkId == netId)
-            ClientGameManager.inst.myConnId = connId;
-    }
-
-	IEnumerator CameraSet(){
-		CmdConnId ();
-		yield return new WaitForSeconds (1.5f);
+	void SetCamera(){
 		mainCamera = Camera.main.GetComponent<CameraMove>();
 		mainCamera.target = this.transform;
+    }
 
-		switch(ClientGameManager.inst.myConnId){
-		case 0: RpcSetColor(PlayerColor.R); break;
-		case 1: RpcSetColor(PlayerColor.B); break;
-		case 2: RpcSetColor(PlayerColor.G); break;
-		case 3: RpcSetColor(PlayerColor.Y); break;
+    void SetColor(int id)
+    {
+		switch(id){
+		case 0: SetColorObject(PlayerColor.R); break;
+		case 1: SetColorObject(PlayerColor.B); break;
+		case 2: SetColorObject(PlayerColor.G); break;
+		case 3: SetColorObject(PlayerColor.Y); break;
 		}
-
 	}
 }

@@ -6,7 +6,6 @@ public class ClientGameManager : NetworkBehaviour
 {
     public static ClientGameManager inst;
 
-    public int myConnId;
     public readonly Dictionary<int, int> connIdToPlayerOrder = new Dictionary<int, int>();
     public readonly Dictionary<int, int> playerOrderToConnId = new Dictionary<int, int>();
 

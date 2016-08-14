@@ -35,7 +35,6 @@ public class HostGameManager : NetworkBehaviour
 
         alivePlayers.Add(playerId);
         players.Add(player);
-        SetColor();
 
         foreach (var kv in clientGameManager.connIdToPlayerOrder)
             clientGameManager.RpcBindConnIdAndPlayerOrder(kv.Key, kv.Value);
@@ -63,20 +62,5 @@ public class HostGameManager : NetworkBehaviour
     private void Win(int winnerId)
     {
         GameMessagePasser.inst.RpcWin(winnerId);
-    }
-
-    public void SetColor()
-    {
-        for (int i = 0; i < players.Count; i++)
-        {
-            var player = players[i].GetComponent<Player>();
-            switch (i)
-            {
-                case 0: player.RpcSetColor(PlayerColor.R); break;
-                case 1: player.RpcSetColor(PlayerColor.B); break;
-                case 2: player.RpcSetColor(PlayerColor.G); break;
-                case 3: player.RpcSetColor(PlayerColor.Y); break;
-            }
-        }
     }
 }

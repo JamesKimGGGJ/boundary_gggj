@@ -8,19 +8,25 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Lobby : NetworkLobbyManager{
-
-    private int hello;
-    Messanger msg;
-
+    // private static Lobby _instance;
+    // public static Lobby instance
+    // {
+    //     get
+    //     {
+    //         if(_instance == null)
+    //             _instance = FindObjectOfType<Lobby>();
+    //         return _instance;
+    //     }
+    // }
     public void CreateMatch() {
         StartMatchMaker();
-        matchMaker.CreateMatch("Room", 4,true, "", "", "", 0, 1, OnMatchCreate);
+        matchMaker.CreateMatch("Room384", 4,true, "", "", "", 0, 1, OnMatchCreate);
     }
     //call this method to find a match through the matchmaker
     public void FindInternetMatch( )
     {
         StartMatchMaker();
-        matchMaker.ListMatches(0, 20, "Room", false, 0, 1, OnMatchList);
+        matchMaker.ListMatches(0, 20, "Room384", false, 0, 1, OnMatchList);
     }
 
     override public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList) {
@@ -30,7 +36,7 @@ public class Lobby : NetworkLobbyManager{
                 matchMaker.JoinMatch(matchList[matchList.Count - 1].networkId, "", "", "", 0, 1, OnMatchJoined);
             }
             else {
-                matchMaker.CreateMatch("Room", 4, true, "", "", "", 0, 1, OnMatchCreate);
+                matchMaker.CreateMatch("Room384", 4, true, "", "", "", 0, 1, OnMatchCreate);
                 //Debug.Log("Nothing");
             }
         }
@@ -84,31 +90,24 @@ public class Lobby : NetworkLobbyManager{
             GameObject.Find("button").GetComponent<UIButtonControl>().AllReady = allready;
         }
     }
-
-    void Start()
+    private static int _playerId = int.MinValue;
+    public static int playerId
     {
-        hello = 0;
-        //msg = GameObject.Find("Messanger").GetComponent<Messanger>();
+        get
+        {
+            if(_playerId==int.MinValue)
+                _playerId = GetPlayerId();
+            return _playerId;
+        }
     }
-    /*void Update()
+    private static int GetPlayerId()
     {
-        if(hello > 100)
+        LobbyPlayer[] players = FindObjectsOfType<LobbyPlayer>();
+        foreach(var player in players)
         {
-            Debug.Log(numPlayers);
-            if (maxPlayers <= numPlayers)
-            {
-                //bool allready = true;
-
-                for (int i = 0; i < maxPlayers; i++) {
-                    lobbySlots[i].readyToBegin = true;
-                }
-                ServerChangeScene(playScene);
-            }
-            hello -= 100;
+            if(player.isLocalPlayer)
+                return player.slot;
         }
-        else
-        {
-            hello++;
-        }
-    }*/
+        throw new System.Exception("No Local LobbyPlayer Found");
+    }
 }

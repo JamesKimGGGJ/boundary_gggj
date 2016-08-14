@@ -624,6 +624,12 @@ Prefab:
       propertyPath: forTitle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012284208372, guid: 28850e9ff5f534a12ae950098f826492,
+        type: 2}
+      propertyPath: stormElement
+      value: 
+      objectReference: {fileID: 1000010729907140, guid: d92e4890a017347dc974b18b946d0985,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28850e9ff5f534a12ae950098f826492, type: 2}
   m_IsPrefabParent: 0

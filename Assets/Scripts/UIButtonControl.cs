@@ -88,6 +88,7 @@ public class UIButtonControl : MonoBehaviour {
     }
 
     public IEnumerator startGame (){
+        int i = Lobby.playerId;
         int remain;
         start = true;
         button.interactable = false;
