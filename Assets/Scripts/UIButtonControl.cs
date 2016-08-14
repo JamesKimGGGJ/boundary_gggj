@@ -17,7 +17,7 @@ public class UIButtonControl : MonoBehaviour {
 
     Text text;
     Button button;
-    Messanger msg;
+    public Messanger msg;
 
     void Start() {
         text = gameObject.GetComponentInChildren<Text>();
@@ -41,7 +41,7 @@ public class UIButtonControl : MonoBehaviour {
                     button.interactable = false;
                 }
             }
-            switch (lobby.numPlayers > 0 ? lobby.numPlayers : GameObject.FindObjectOfType<Messanger>().num) {
+            switch (lobby.numPlayers > 0 ? lobby.numPlayers : msg.num) {
                 case 0:
                 case 1:
                     peoples[0].enabled = true;
@@ -75,8 +75,7 @@ public class UIButtonControl : MonoBehaviour {
         if (Ready)
         {
             StartCoroutine(startGame());
-            GameObject.Find("Messanger").GetComponent<Messanger>().RpcMeg(0,0);
-            
+            msg.RpcMeg(0,0);
         }
         else {
             DOTween.Init();

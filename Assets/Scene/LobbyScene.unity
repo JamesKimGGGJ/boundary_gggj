@@ -2870,6 +2870,7 @@ MonoBehaviour:
   secStr_0: 
   secStr_1: "\uCD08 \uB4A4 \uAC8C\uC784\uC744 \uC2DC\uC791\uD569\uB2C8\uB2E4"
   cameraSecondPosition: {fileID: 1491190278}
+  msg: {fileID: 985782544}
 --- !u!4 &1853794201 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012078611820, guid: 28850e9ff5f534a12ae950098f826492,
