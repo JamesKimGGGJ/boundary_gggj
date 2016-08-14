@@ -36,10 +36,11 @@ public class HostGameManager : NetworkBehaviour
             clientGameManager.RpcBindConnIdAndPlayerOrder(playerId, players.Count);
     }
 
-    public void OnPlayerDie(int playerId)
+	public void OnPlayerDie(int playerId, GameObject player)
     {
         Debug.Log("Player " + playerId + " Died");
         alivePlayers.Remove(playerId);
+		players.Remove (player);
         if (alivePlayers.Count == 1)
         {
             Win(alivePlayers[0]);
