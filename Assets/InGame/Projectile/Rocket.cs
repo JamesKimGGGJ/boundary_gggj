@@ -22,19 +22,13 @@ public class Rocket : NetworkBehaviour
     {
         if (!localPlayerAuthority) return;
         lifeTime -= Time.deltaTime;
-        if (lifeTime < 0) DestroyOnNetwork();
+        if (lifeTime < 0) NetworkServer.Destroy(gameObject);
     }
 
     void UpdateAngle()
     {
         var dir = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
         transform.eulerAngles = new Vector3(0, 0, Mathf.Rad2Deg * dir);
-    }
-
-    void DestroyOnNetwork()
-    {
-        NetworkServer.UnSpawn(gameObject);
-        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -70,6 +64,7 @@ public class Rocket : NetworkBehaviour
     {
         GameObject explodeFX = EffectSpawner.instance.GetEffect("Explode");
         explodeFX.transform.position = transform.position;
-        DestroyOnNetwork();
+        explodeFX.SetActive(true);
+        NetworkServer.Destroy(gameObject);
     }
 }

@@ -70,8 +70,7 @@ public class Player : NetworkBehaviour
     {
         // TODO:
         // effect
-        NetworkServer.UnSpawn(gameObject);
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 
     [Command]

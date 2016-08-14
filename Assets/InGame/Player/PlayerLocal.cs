@@ -27,7 +27,6 @@ public class PlayerLocal : MonoBehaviour
     {
         Debug.Log("get item: " + itemBox.itemType);
         player.CmdGetItem(itemBox.itemType);
-        NetworkServer.UnSpawn(itemBox.gameObject);
-        Destroy(itemBox.gameObject);
+        NetworkServer.Destroy(itemBox.gameObject);
     }
 }
