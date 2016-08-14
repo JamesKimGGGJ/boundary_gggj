@@ -37,17 +37,19 @@ public class HostGameManager : NetworkBehaviour
         players.Add(player);
         SetColor();
 
+        foreach (var kv in clientGameManager.connIdToPlayerOrder)
+            clientGameManager.RpcBindConnIdAndPlayerOrder(kv.Key, kv.Value);
         clientGameManager.RpcBindConnIdAndPlayerOrder(playerId, players.Count);
     }
 
-	public void OnPlayerDie(int playerId, GameObject player)
+    public void OnPlayerDie(int playerId, GameObject player)
     {
         //Die Effect Sound
         audiosrc.Play();
 
         Debug.Log("Player " + playerId + " Died");
         alivePlayers.Remove(playerId);
-		players.Remove (player);
+        players.Remove(player);
         if (alivePlayers.Count == 1)
         {
             Win(alivePlayers[0]);

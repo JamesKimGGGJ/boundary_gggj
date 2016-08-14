@@ -7,7 +7,7 @@ public class Player : NetworkBehaviour
 {
     public delegate void OnSpawnEvent(int playerId, GameObject player);
     public static event OnSpawnEvent OnSpawn;
-	public delegate void OnDieEvent(int playerId, GameObject player);
+    public delegate void OnDieEvent(int playerId, GameObject player);
     public static event OnDieEvent OnDie;
 
     public NetworkIdentity networkId;
@@ -51,7 +51,7 @@ public class Player : NetworkBehaviour
 
     void OnDestroy()
     {
-		if (OnDie != null) OnDie(serverPlayerId, this.gameObject);
+        if (OnDie != null) OnDie(serverPlayerId, this.gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -136,7 +136,7 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdRequestFire()
     {
-        var itemType = PlayerItemManager.inst.FindAndUnSet(serverPlayerId);
+        var itemType = PlayerItemManager.inst.Find(serverPlayerId);
         if (!itemType.HasValue) return;
         itemShooter.ShootServerSide(itemType.Value);
         RpcResponseFire(serverPlayerId, itemType.Value);
