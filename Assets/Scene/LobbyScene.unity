@@ -2781,7 +2781,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.6397059, g: 0.6397059, b: 0.6397059, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2862,10 +2862,11 @@ MonoBehaviour:
   - {fileID: 388957047}
   lobby: {fileID: 1094410654}
   start: 0
-  startStr: 
-  readyStr: 
+  startStr: "\uAC8C\uC784 \uC2DC\uC791"
+  readyStr: "\uB300\uAE30 \uC911"
   secStr_0: 
-  secStr_1: 
+  secStr_1: "\uCD08 \uB4A4 \uAC8C\uC784\uC744 \uC2DC\uC791\uD569\uB2C8\uB2E4"
+  cameraSecondPosition: {fileID: 1491190278}
 --- !u!4 &1853794201 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012078611820, guid: 28850e9ff5f534a12ae950098f826492,

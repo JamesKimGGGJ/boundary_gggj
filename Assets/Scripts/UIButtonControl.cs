@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using DG.Tweening;
 
 public class UIButtonControl : MonoBehaviour {
     public Image[] peoples;
@@ -12,6 +13,7 @@ public class UIButtonControl : MonoBehaviour {
     public string readyStr;
     public string secStr_0;
     public string secStr_1;
+    public Transform cameraSecondPosition;
 
     Text text;
     Button button;
@@ -39,7 +41,7 @@ public class UIButtonControl : MonoBehaviour {
                     button.interactable = false;
                 }
             }
-            switch (lobby.numPlayers > 0 ? lobby.numPlayers : GameObject.Find("Messanger").GetComponent<Messanger>().num) {
+            switch (lobby.numPlayers > 0 ? lobby.numPlayers : GameObject.FindObjectOfType<Messanger>().num) {
                 case 0:
                 case 1:
                     peoples[0].enabled = true;
@@ -77,6 +79,9 @@ public class UIButtonControl : MonoBehaviour {
             
         }
         else {
+            DOTween.Init();
+            Camera.main.transform.DOMove(cameraSecondPosition.position,1).SetEase(Ease.OutCubic);
+            Camera.main.transform.DORotate(cameraSecondPosition.rotation.eulerAngles,1);
             lobby.FindInternetMatch();
             button.interactable = false;
         }
