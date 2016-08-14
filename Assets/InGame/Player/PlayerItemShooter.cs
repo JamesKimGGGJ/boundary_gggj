@@ -20,7 +20,8 @@ public class PlayerRocketShooter : IPlayerItemShooter
 
     public void ShootServerSide(Player player)
     {
-        var pos = player.transform.position;
+        var pos = player.transform.TransformPoint(Vector2.right);
+        pos.z = -0.6f;
         var rot = player.transform.rotation;
         var go = (GameObject)GameObject.Instantiate(prefab, pos, rot);
         var worldVel = go.transform.right * speed;

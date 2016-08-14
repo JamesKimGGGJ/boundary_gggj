@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000012468835164}
   - 33: {fileID: 33000010780667076}
   - 23: {fileID: 23000011117895524}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010139192976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014059222262}
   - 96: {fileID: 96000010029635600}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,9 @@ GameObject:
   - 114: {fileID: 114000013970044202}
   - 114: {fileID: 114000012687298002}
   - 114: {fileID: 114000014129299922}
-  m_Layer: 0
+  - 114: {fileID: 114000010063231820}
+  - 61: {fileID: 61000013830352446}
+  m_Layer: 11
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +188,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61000013830352446
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357467202}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.7, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.5}
 --- !u!96 &96000010029635600
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -236,6 +252,18 @@ TrailRenderer:
       rgba: 10092754
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114000010063231820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357467202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfdda36344ce649fc8f51bbe46d9b767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 50000013248897472}
 --- !u!114 &114000012687298002
 MonoBehaviour:
   m_ObjectHideFlags: 1

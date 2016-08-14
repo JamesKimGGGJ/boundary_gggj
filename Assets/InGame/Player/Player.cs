@@ -11,11 +11,17 @@ public class Player : NetworkBehaviour
     public static event OnDieEvent OnDie;
 
     public NetworkIdentity networkId;
+    public Rigidbody2D rb;
     public GameObject[] modelsByColor;
     public PlayerItemShooter itemShooter;
 
     [HideInInspector]
     public int serverPlayerId;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Start()
     {
