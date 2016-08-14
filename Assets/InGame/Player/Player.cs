@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 
 public enum PlayerColor { R = 0, G, B, Y, }
 
@@ -43,8 +44,7 @@ public class Player : NetworkBehaviour
             playerLocal.player = this;
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
-            mainCamera = Camera.main.GetComponent<CameraMove>();
-            mainCamera.target = this.transform;
+			StartCoroutine ("CameraSet");
         }
 
         if (OnSpawn != null) OnSpawn(serverPlayerId, this.gameObject);
@@ -165,4 +165,19 @@ public class Player : NetworkBehaviour
         if (networkId == netId)
             ClientGameManager.inst.myConnId = connId;
     }
+
+	IEnumerator CameraSet(){
+		CmdConnId ();
+		yield return new WaitForSeconds (1.5f);
+		mainCamera = Camera.main.GetComponent<CameraMove>();
+		mainCamera.target = this.transform;
+
+		switch(ClientGameManager.inst.myConnId){
+		case 0: RpcSetColor(PlayerColor.R); break;
+		case 1: RpcSetColor(PlayerColor.B); break;
+		case 2: RpcSetColor(PlayerColor.G); break;
+		case 3: RpcSetColor(PlayerColor.Y); break;
+		}
+
+	}
 }

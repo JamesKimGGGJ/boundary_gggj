@@ -21,6 +21,10 @@ public class Map : MonoBehaviour {
         map = blipParent.GetComponent<RectTransform>().rect;
     }
 
+	void OnDestroy(){
+		Player.OnSpawn -= OnPlayerSpawn;
+	}
+
     public bool MoveInside(Vector2 p)
     {
         if (p.y > map.max.y)
