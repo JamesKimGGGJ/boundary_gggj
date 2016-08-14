@@ -10,6 +10,7 @@ using System.Collections.Generic;
 public class Lobby : NetworkLobbyManager{
 
     private int hello;
+    Messanger msg;
 
     public void CreateMatch() {
         StartMatchMaker();
@@ -65,6 +66,7 @@ public class Lobby : NetworkLobbyManager{
     public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
     {
         GameObject obj = base.OnLobbyServerCreateLobbyPlayer(conn, playerControllerId);
+        
         return obj;
     }
     
@@ -78,6 +80,7 @@ public class Lobby : NetworkLobbyManager{
                 if (lobbySlots[i] != null)
                     allready &= lobbySlots[i].readyToBegin;
             }
+            GameObject.Find("Messanger").GetComponent<Messanger>().RpcMeg(1, numPlayers);
             GameObject.Find("button").GetComponent<UIButtonControl>().AllReady = allready;
         }
     }
@@ -85,13 +88,14 @@ public class Lobby : NetworkLobbyManager{
     void Start()
     {
         hello = 0;
+        //msg = GameObject.Find("Messanger").GetComponent<Messanger>();
     }
-    void Update()
+    /*void Update()
     {
         if(hello > 100)
         {
             Debug.Log(numPlayers);
-            /*if (maxPlayers <= numPlayers)
+            if (maxPlayers <= numPlayers)
             {
                 //bool allready = true;
 
@@ -99,12 +103,12 @@ public class Lobby : NetworkLobbyManager{
                     lobbySlots[i].readyToBegin = true;
                 }
                 ServerChangeScene(playScene);
-            }*/
+            }
             hello -= 100;
         }
         else
         {
             hello++;
         }
-    }
+    }*/
 }

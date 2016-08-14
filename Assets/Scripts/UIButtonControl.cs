@@ -10,6 +10,7 @@ public class UIButtonControl : MonoBehaviour {
     public bool start;
     Text text;
     Button button;
+    Messanger msg;
 
     void Start() {
         text = gameObject.GetComponentInChildren<Text>();
@@ -22,55 +23,42 @@ public class UIButtonControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Ready) {
-            switch (lobby.numPlayers) {
-                case 0:
-                    peoples[0].enabled = false;
-                    peoples[1].enabled = false;
-                    peoples[2].enabled = false;
-                    peoples[3].enabled = false;
+            if (!start) {
+                if (lobby.numPlayers > 0)
+                {
+                    text.text = "Start";
+                    button.interactable = lobby.numPlayers > 1 ? AllReady : false;
+                }
+                else {
                     text.text = "Ready";
                     button.interactable = false;
-                    break;
+                }
+            }
+            switch (lobby.numPlayers > 0 ? lobby.numPlayers : GameObject.Find("Messanger").GetComponent<Messanger>().num) {
+                case 0:
                 case 1:
                     peoples[0].enabled = true;
                     peoples[1].enabled = false;
                     peoples[2].enabled = false;
                     peoples[3].enabled = false;
-                    text.text = "Start";
-                    button.interactable = false;
                     break;
                 case 2:
                     peoples[0].enabled = true;
                     peoples[1].enabled = true;
                     peoples[2].enabled = false;
                     peoples[3].enabled = false;
-                    if (!start)
-                    {
-                        text.text = "Start";
-                        button.interactable = AllReady;
-                    }
                     break;
                 case 3:
                     peoples[0].enabled = true;
                     peoples[1].enabled = true;
                     peoples[2].enabled = true;
                     peoples[3].enabled = false;
-                    if (!start)
-                    {
-                        text.text = "Start";
-                        button.interactable = AllReady;
-                    }
                     break;
                 case 4:
                     peoples[0].enabled = true;
                     peoples[1].enabled = true;
                     peoples[2].enabled = true;
                     peoples[3].enabled = true;
-                    if (!start)
-                    {
-                        text.text = "Start";
-                        button.interactable = AllReady;
-                    }
                     break;
             }
         }
@@ -80,17 +68,18 @@ public class UIButtonControl : MonoBehaviour {
         if (Ready)
         {
             StartCoroutine(startGame());
-            start = true;
+            GameObject.Find("Messanger").GetComponent<Messanger>().RpcMeg(0,0);
+            
         }
         else {
-            lobby.StopMatchMaker();
             lobby.FindInternetMatch();
             button.interactable = false;
         }
     }
 
-    IEnumerator startGame (){
+    public IEnumerator startGame (){
         int remain;
+        start = true;
         button.interactable = false;
         for (remain = 5; remain > 0; remain--) {
             text.text = "" + remain + "초 뒤 매칭된 폭풍으로 이동합니다.";
