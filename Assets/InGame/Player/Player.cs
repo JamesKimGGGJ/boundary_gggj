@@ -84,8 +84,6 @@ public class Player : NetworkBehaviour
     public void CmdRequestFire()
     {
         var itemType = PlayerItemManager.inst.Find(serverPlayerId);
-        // TODO: debug
-        itemType = ItemType.Rocket;
         if (!itemType.HasValue) return;
 
         itemShooter.ShootServerSide(itemType.Value);
