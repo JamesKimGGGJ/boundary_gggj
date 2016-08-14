@@ -674,6 +674,7 @@ MonoBehaviour:
   - {fileID: 1000010775774766}
   - {fileID: 1000012497805988}
   itemShooter: {fileID: 114000010777811332}
+  mainCamera: {fileID: 0}
   serverPlayerId: 0
 --- !u!114 &114000011963916780
 MonoBehaviour:

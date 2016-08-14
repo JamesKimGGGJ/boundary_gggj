@@ -15,12 +15,15 @@ public class Player : NetworkBehaviour
     public GameObject[] modelsByColor;
     public PlayerItemShooter itemShooter;
 
+	public CameraMove mainCamera;
+
     [HideInInspector]
     public int serverPlayerId;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Start()
@@ -38,6 +41,9 @@ public class Player : NetworkBehaviour
 
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
+
+			mainCamera = Camera.main.GetComponent<CameraMove> ();
+			mainCamera.target = this.transform;
             // TODO: set control scheme
         }
 
@@ -116,4 +122,11 @@ public class Player : NetworkBehaviour
         if (localPlayerAuthority) itemShooter.ShootMySide(itemType);
         itemShooter.ShootClientSide(itemType);
     }
+
+    [Command]
+    public void CmdDestroy(NetworkIdentity networkId)
+    {
+        NetworkServer.Destroy(networkId.gameObject);
+    }
+		
 }
