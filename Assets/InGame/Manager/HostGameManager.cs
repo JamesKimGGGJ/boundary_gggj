@@ -32,8 +32,7 @@ public class HostGameManager : NetworkBehaviour
         players.Add(player);
         SetColor();
 
-        foreach (var conn in NetworkServer.connections)
-            clientGameManager.RpcBindConnIdAndPlayerOrder(playerId, players.Count);
+        clientGameManager.RpcBindConnIdAndPlayerOrder(playerId, players.Count);
     }
 
 	public void OnPlayerDie(int playerId, GameObject player)

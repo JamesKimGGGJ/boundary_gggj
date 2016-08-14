@@ -10,9 +10,7 @@ public class ItemBox : NetworkBehaviour
 
     void Start()
     {
-        var getEffect = EffectSpawner.instance.GetEffect("ItemGet");
-        getEffect.transform.position = transform.position;
-        getEffect.SetActive(true);
+        PlayParticle();
     }
 
     void Update()
@@ -20,12 +18,16 @@ public class ItemBox : NetworkBehaviour
         rendererRoot.Rotate(rotateSpeed * Time.deltaTime);
     }
 
-    [Command]
-    public void CmdEatAndDestroy()
+    public void PlayParticle()
     {
         var getEffect = EffectSpawner.instance.GetEffect("ItemGet");
         getEffect.transform.position = transform.position;
         getEffect.SetActive(true);
-        NetworkServer.Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    public void RpcPlayParticle()
+    {
+        PlayParticle();
     }
 }

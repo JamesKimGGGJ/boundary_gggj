@@ -86,9 +86,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdGetItem(ItemType itemType)
+    public void CmdGetAndDestroyItem(NetworkIdentity netId)
     {
-        RpcGetItem(serverPlayerId, itemType);
+        if (netId == null) return;
+        var itemBox = netId.GetComponent<ItemBox>();
+        RpcGetItem(serverPlayerId, itemBox.itemType);
+        itemBox.RpcPlayParticle();
+        NetworkServer.Destroy(netId.gameObject);
     }
 
     [ClientRpc]
