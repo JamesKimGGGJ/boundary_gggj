@@ -8,7 +8,12 @@ public class HostGameManager : NetworkBehaviour
     private const float stormRadiusDecreaseStartTime = 20;
     private readonly List<int> alivePlayers = new List<int>();
     private readonly List<GameObject> players = new List<GameObject>();
+    private AudioSource audiosrc;
 
+    void Awake()
+    {
+        audiosrc = GetComponent<AudioSource>();
+    }
     void Start()
     {
         Invoke("StartRaduisDecrease", stormRadiusDecreaseStartTime);
@@ -37,6 +42,9 @@ public class HostGameManager : NetworkBehaviour
 
 	public void OnPlayerDie(int playerId, GameObject player)
     {
+        //Die Effect Sound
+        audiosrc.Play();
+
         Debug.Log("Player " + playerId + " Died");
         alivePlayers.Remove(playerId);
 		players.Remove (player);

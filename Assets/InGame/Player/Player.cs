@@ -72,7 +72,7 @@ public class Player : NetworkBehaviour
         // layer number 9 : item
         if (coll.gameObject.layer == 9)
         {
-            audiosource.PlayOneShot(audioclips[2], 0.08f);
+            audiosource.PlayOneShot(audioclips[2], 0.4f);
         }
         // layer number 11 : projectile (missile)
         else if (coll.gameObject.layer == 11)
