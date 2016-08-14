@@ -48,7 +48,7 @@ public class PlayerRocketShooter : IPlayerItemShooter
 
 public class PlayerJetPackShooter : IPlayerItemShooter
 {
-    private const float speed = 8;
+    private const float speed = 20;
     private AudioClip ac;
     private AudioSource ads;
 
@@ -63,8 +63,10 @@ public class PlayerJetPackShooter : IPlayerItemShooter
     {
         // effect spawn
         GameObject effect = EffectSpawner.instance.GetEffect("JetPack");
-        effect.transform.position = player.transform.position;
-        effect.transform.rotation = player.transform.rotation;
+        effect.transform.position = player.transform.position + Vector3.forward * 0.6f;
+        Vector2 v = player.GetComponent<PlayerInputProcessor>().GetMoveInput();
+        float deg = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        effect.transform.rotation = Quaternion.Euler(0,0,deg-90);
         effect.SetActive(true);
         ads.PlayOneShot(ac, 1.0f);
     }
