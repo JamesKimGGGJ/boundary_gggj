@@ -7,6 +7,7 @@ public class HostGameManager : NetworkBehaviour
     public ClientGameManager clientGameManager;
     private const float stormRadiusDecreaseStartTime = 20;
     private readonly List<int> alivePlayers = new List<int>();
+	private readonly List<GameObject> players = new List<GameObject>();
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class HostGameManager : NetworkBehaviour
         clientGameManager.RpcStartRadiusDecrease();
     }
 
-    public void OnPlayerSpawn(int playerId)
+	public void OnPlayerSpawn(int playerId, GameObject player)
     {
         if (alivePlayers.Contains(playerId))
         {
@@ -27,6 +28,9 @@ public class HostGameManager : NetworkBehaviour
         }
 
         alivePlayers.Add(playerId);
+		players.Add (player);
+		SetColor ();
+
     }
 
     public void OnPlayerDie(int playerId)
@@ -47,4 +51,27 @@ public class HostGameManager : NetworkBehaviour
     {
         GameMessagePasser.inst.RpcWin(winnerId);
     }
+
+	public void SetColor(){
+		for (int i = 0; i < players.Count; i++) {
+			var player = players[i].GetComponent<Player>();
+			switch (i) {
+				case 0:
+				player.RpcSetColor (PlayerColor.R);
+				break;
+
+			case 1:
+				player.RpcSetColor (PlayerColor.B);
+				break;
+
+			case 2:
+				player.RpcSetColor (PlayerColor.G);
+				break;
+
+			case 3:
+				player.RpcSetColor (PlayerColor.Y);
+				break;
+			}
+		}
+	}
 }

@@ -31,10 +31,10 @@ public class GameMessagePasser : NetworkBehaviour
     }
 
     [Command]
-    public void CmdPlayerSpawn(int playerId)
+	public void CmdPlayerSpawn(int playerId, GameObject player)
     {
         if (!isServer) return;
-        hostGameManager.OnPlayerSpawn(playerId);
+        hostGameManager.OnPlayerSpawn(playerId, player);
     }
 
     [Command]

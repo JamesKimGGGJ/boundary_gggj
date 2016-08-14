@@ -5,7 +5,7 @@ public enum PlayerColor { R = 0, G, B, Y, }
 
 public class Player : NetworkBehaviour
 {
-    public delegate void OnSpawnEvent(int playerId);
+	public delegate void OnSpawnEvent(int playerId, GameObject player);
     public static event OnSpawnEvent OnSpawn;
     public delegate void OnDieEvent(int playerId);
     public static event OnDieEvent OnDie;
@@ -36,8 +36,8 @@ public class Player : NetworkBehaviour
         }
 
         // TODO: set color from manager
-        SetColor(PlayerColor.R);
-        if (OnSpawn != null) OnSpawn(serverPlayerId);
+        RpcSetColor(PlayerColor.R);
+		if (OnSpawn != null) OnSpawn(serverPlayerId, this.gameObject);
     }
 
     void OnDestroy()
@@ -45,7 +45,8 @@ public class Player : NetworkBehaviour
         if (OnDie != null) OnDie(serverPlayerId);
     }
 
-    public void SetColor(PlayerColor color)
+	[ClientRpc]
+    public void RpcSetColor(PlayerColor color)
     {
         if (modelsByColor.Length <= (int)color)
         {
