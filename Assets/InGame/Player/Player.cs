@@ -7,7 +7,7 @@ public class Player : NetworkBehaviour
 {
     public delegate void OnSpawnEvent(int playerId, GameObject player);
     public static event OnSpawnEvent OnSpawn;
-    public delegate void OnDieEvent(int playerId);
+	public delegate void OnDieEvent(int playerId, GameObject player);
     public static event OnDieEvent OnDie;
 
     public NetworkIdentity networkId;
@@ -47,7 +47,7 @@ public class Player : NetworkBehaviour
 
     void OnDestroy()
     {
-        if (OnDie != null) OnDie(serverPlayerId);
+		if (OnDie != null) OnDie(serverPlayerId, this.gameObject);
     }
 
     [ClientRpc]

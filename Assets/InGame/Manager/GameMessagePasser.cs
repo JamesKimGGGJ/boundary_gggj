@@ -38,10 +38,10 @@ public class GameMessagePasser : NetworkBehaviour
     }
 
     [Command]
-    public void CmdPlayerDie(int playerId)
+	public void CmdPlayerDie(int playerId, GameObject player)
     {
         if (!isServer) return;
-        hostGameManager.OnPlayerDie(playerId);
+        hostGameManager.OnPlayerDie(playerId, player);
     }
 
     [ClientRpc]
