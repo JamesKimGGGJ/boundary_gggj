@@ -8,6 +8,7 @@ SubShader {
  
  Tags { "RenderType"="Transparent" "Queue"="Overlay" }
  LOD 100
+ Cull Off
  
  GrabPass
  {

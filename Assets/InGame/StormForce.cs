@@ -16,6 +16,12 @@ public class StormForce : MonoBehaviour
         var radius = pos.magnitude;
         var stormR = GameGlobalVar.stormRadius;
 
+        if (radius > stormR)
+        {
+            // 폭풍 밖은 안전하다.
+            return;
+        }
+
         var f = Vector2.zero;
         var innerStormR = 0.7f * stormR;
         if (radius < innerStormR)

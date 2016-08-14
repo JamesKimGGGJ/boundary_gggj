@@ -11,11 +11,12 @@ public class HostGameManager : NetworkBehaviour
 
     void Start()
     {
-        Invoke("", stormRadiusDecreaseStartTime);
+        Invoke("StartRaduisDecrease", stormRadiusDecreaseStartTime);
     }
 
     private void StartRaduisDecrease()
     {
+        Debug.Log("StartRaduisDecrease");
         clientGameManager.RpcStartRadiusDecrease();
     }
 
