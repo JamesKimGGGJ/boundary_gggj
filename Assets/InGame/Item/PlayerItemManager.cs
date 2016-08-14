@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerItemManager : NetworkBehaviour
+public class PlayerItemManager : MonoBehaviour
 {
     public static PlayerItemManager inst;
     private readonly Dictionary<int, ItemType> _items = new Dictionary<int, ItemType>();
@@ -20,8 +20,7 @@ public class PlayerItemManager : NetworkBehaviour
         else Debug.LogError("inst null");
     }
 
-    [ClientRpc]
-    public void RpcSet(int playerId, ItemType itemType)
+    public void Set(int playerId, ItemType itemType)
     {
         if (itemType == ItemType.None)
         {
@@ -32,11 +31,7 @@ public class PlayerItemManager : NetworkBehaviour
         _items[playerId] = itemType;
     }
 
-    [ClientRpc]
-    private void RpcUnSet(int playerId)
-    {
-        _items.Remove(playerId);
-    }
+    private void UnSet(int playerId) { _items.Remove(playerId); }
 
     public ItemType? Find(int playerId)
     {
@@ -49,7 +44,7 @@ public class PlayerItemManager : NetworkBehaviour
     public ItemType? FindAndUnSet(int playerId)
     {
         var ret = Find(playerId);
-        RpcUnSet(playerId);
+        UnSet(playerId);
         return ret;
     }
 

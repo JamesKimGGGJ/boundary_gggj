@@ -76,7 +76,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     private void RpcGetItem(int playerId, ItemType itemType)
     {
-        PlayerItemManager.inst.RpcSet(playerId, itemType);
+        PlayerItemManager.inst.Set(playerId, itemType);
         Debug.Log("item: " + itemType);
     }
 
