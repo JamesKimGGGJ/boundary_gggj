@@ -37,7 +37,6 @@ public class PlayerLocal : MonoBehaviour
     private void OnCollideWithItem(ItemBox itemBox)
     {
         Debug.Log("get item: " + itemBox.itemType);
-        player.CmdGetItem(itemBox.itemType);
-        itemBox.CmdEatAndDestroy();
+        player.CmdGetAndDestroyItem(itemBox.GetComponent<NetworkIdentity>());
     }
 }

@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class UIButtonControl : MonoBehaviour {
     public Image[] peoples;
+    public GameObject peopleShadow;
     public bool Ready { get; set; }
     public Lobby lobby;
     public bool AllReady { get; set; }
@@ -83,6 +84,7 @@ public class UIButtonControl : MonoBehaviour {
             Camera.main.transform.DORotate(cameraSecondPosition.rotation.eulerAngles,1);
             lobby.FindInternetMatch();
             button.interactable = false;
+            peopleShadow.SetActive(true);
         }
     }
 
