@@ -100,7 +100,7 @@ public class PlayerItemShooter : MonoBehaviour
     {
         shooters = new Dictionary<ItemType, IPlayerItemShooter>{
              { ItemType.Rocket, new PlayerRocketShooter(prefabRocket) },
-             { ItemType.JetPack, new PlayerJetPackShooter() },
+            //  { ItemType.JetPack, new PlayerJetPackShooter() },
              { ItemType.ColumnDrop, new PlayerColumnShooter() }
         };
     }
