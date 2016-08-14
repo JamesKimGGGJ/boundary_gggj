@@ -102,7 +102,7 @@ public class Player : NetworkBehaviour
     public void RequestFire()
     {
         var itemType = PlayerItemManager.inst.Find(serverPlayerId);
-        if(!itemType.HasValue) return;
+        if (!itemType.HasValue) return;
         itemShooter.ShootMySide(itemType.Value);
         CmdRequestFire(itemType.Value);
     }
@@ -120,5 +120,11 @@ public class Player : NetworkBehaviour
         var orgItemType = PlayerItemManager.inst.FindAndUnSet(playerId);
         if (itemType != orgItemType) Debug.LogWarning("item type does not match");
         itemShooter.ShootClientSide(itemType);
+    }
+
+    [Command]
+    public void CmdDestroy(NetworkIdentity networkId)
+    {
+        NetworkServer.Destroy(networkId.gameObject);
     }
 }
