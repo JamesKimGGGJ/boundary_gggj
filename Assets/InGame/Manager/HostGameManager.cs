@@ -4,7 +4,19 @@ using UnityEngine.Networking;
 
 public class HostGameManager : NetworkBehaviour
 {
+    public ClientGameManager clientGameManager;
+    private const float stormRadiusDecreaseStartTime = 20;
     private readonly List<int> alivePlayers = new List<int>();
+
+    void Start()
+    {
+        Invoke("", stormRadiusDecreaseStartTime);
+    }
+
+    private void StartRaduisDecrease()
+    {
+        clientGameManager.RpcStartRadiusDecrease();
+    }
 
     public void OnPlayerSpawn(int playerId)
     {
