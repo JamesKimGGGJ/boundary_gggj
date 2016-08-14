@@ -6,9 +6,6 @@ public class ClientGameManager : NetworkBehaviour
 {
     public static ClientGameManager inst;
 
-    public readonly Dictionary<int, int> connIdToPlayerOrder = new Dictionary<int, int>();
-    public readonly Dictionary<int, int> playerOrderToConnId = new Dictionary<int, int>();
-
     private const float stormRaduisDescreaseSpeed = 1;
     public bool stormRadiusDecreaseEnabled;
     public StormEffect stormEffect;
@@ -42,14 +39,6 @@ public class ClientGameManager : NetworkBehaviour
             GameGlobalVar.stormRadius -= Time.deltaTime * stormRaduisDescreaseSpeed;
             stormEffect.stormSize = GameGlobalVar.stormRadius;
         }
-    }
-
-    [ClientRpc]
-    public void RpcBindConnIdAndPlayerOrder(int connId, int playerOrder)
-    {
-        Debug.Log("connId: " + connId + " playerId: " + playerOrder);
-        connIdToPlayerOrder[connId] = playerOrder;
-        playerOrderToConnId[playerOrder] = connId;
     }
 
     [ClientRpc]

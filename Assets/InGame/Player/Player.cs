@@ -47,7 +47,7 @@ public class Player : NetworkBehaviour
     [Command]
     void CmdBroadcastId(int id)
     {
-        HostGameManager.instance.OnPlayerSpawn(serverPlayerId, gameObject);
+        HostGameManager.instance.OnPlayerSpawn(id, gameObject);
         RpcInitialize(id);
     }
 

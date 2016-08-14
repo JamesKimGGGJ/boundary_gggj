@@ -38,10 +38,6 @@ public class HostGameManager : NetworkBehaviour
         alivePlayers.Add(playerId);
         players.Add(player);
         Debug.Log("AlivePlayers : "+alivePlayers.Count);
-
-        foreach (var kv in clientGameManager.connIdToPlayerOrder)
-            clientGameManager.RpcBindConnIdAndPlayerOrder(kv.Key, kv.Value);
-        clientGameManager.RpcBindConnIdAndPlayerOrder(playerId, players.Count);
     }
 
     public void OnPlayerDie(int playerId, GameObject player)
