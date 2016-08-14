@@ -116,10 +116,4 @@ public class Player : NetworkBehaviour
         if (localPlayerAuthority) itemShooter.ShootMySide(itemType);
         itemShooter.ShootClientSide(itemType);
     }
-
-    [Command]
-    public void CmdDestroy(NetworkIdentity networkId)
-    {
-        NetworkServer.Destroy(networkId.gameObject);
-    }
 }
