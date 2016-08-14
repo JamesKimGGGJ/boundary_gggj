@@ -37,7 +37,7 @@ public class PlayerRocketShooter : IPlayerItemShooter
         // do nothing
     }
 
-    public void ShootMySide(Player player){}
+    public void ShootMySide(Player player) { }
 }
 
 public class PlayerJetPackShooter : IPlayerItemShooter
@@ -56,10 +56,9 @@ public class PlayerJetPackShooter : IPlayerItemShooter
     {
         // set velocity
         var input = player.GetComponent<PlayerInputProcessor>();
-        if(input==null) throw new Exception("Player without Input used Item");
-        int x,y;
-        input.GetMoveInput(out x, out y);
-        player.rb.velocity = new Vector2(x,y).normalized * speed;
+        if (input == null) throw new Exception("Player without Input used Item");
+        var moveInput = input.GetMoveInput();
+        player.rb.velocity = moveInput.normalized * speed;
     }
 
     public void ShootServerSide(Player player)

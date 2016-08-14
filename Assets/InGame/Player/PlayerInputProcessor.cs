@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 
-public enum PlayerControlScheme { Right, Left, }
-
 public class PlayerInputProcessor : MonoBehaviour
 {
-    public PlayerControlScheme scheme;
     public Player player;
     public Rigidbody2D rb;
     public float force = 10;
@@ -14,25 +11,11 @@ public class PlayerInputProcessor : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void GetMoveInput(out int x, out int y)
+    public Vector2 GetMoveInput()
     {
-        x = 0;
-        y = 0;
-
-        if (scheme == PlayerControlScheme.Right)
-        {
-            if (Input.GetKey(KeyCode.LeftArrow)) x = -1;
-            else if (Input.GetKey(KeyCode.RightArrow)) x = 1;
-            if (Input.GetKey(KeyCode.DownArrow)) y = -1;
-            else if (Input.GetKey(KeyCode.UpArrow)) y = 1;
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.A)) x = -1;
-            else if (Input.GetKey(KeyCode.D)) x = 1;
-            if (Input.GetKey(KeyCode.S)) y = -1;
-            else if (Input.GetKey(KeyCode.W)) y = 1;
-        }
+        var x = Input.GetAxis("Horizontal");
+        var y = Input.GetAxis("Vertical");
+        return new Vector2(x, y);
     }
 
     bool GetFireInput()
@@ -43,16 +26,15 @@ public class PlayerInputProcessor : MonoBehaviour
     void Update()
     {
         UpdateTransform();
-        if(GetFireInput()) player.RequestFire();
+        if (GetFireInput()) player.RequestFire();
     }
 
     void UpdateTransform()
     {
-        int x, y;
-        GetMoveInput(out x, out y);
-        if (x == 0 && y == 0) return;
+        var move = GetMoveInput();
+        if (move.sqrMagnitude < 0.02f) return;
 
-        var f = new Vector2(x, y) * force;
+        var f = move * force;
         rb.AddForce(f);
 
         var v = rb.velocity;
