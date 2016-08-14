@@ -9,6 +9,7 @@ public class ClientGameManager : NetworkBehaviour
 
     void Start()
     {
+        GameGlobalVar.Reset();
         stormEffect.stormSize = GameGlobalVar.stormRadius;
     }
 

@@ -23,8 +23,9 @@ public class ItemSpawner : NetworkBehaviour
 
     private static Vector3 SamplePosition()
     {
-        // TODO: radius
-        return new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), -0.8f);
+        var r = Random.Range(0, GameGlobalVar.stormRadius);
+        var angle = Random.Range(0, 2 * Mathf.PI);
+        return new Vector3(r * Mathf.Cos(angle), r * Mathf.Sin(angle), -0.8f);
     }
 
     private void Spawn()
