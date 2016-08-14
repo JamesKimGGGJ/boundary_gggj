@@ -9,6 +9,6 @@
 
     public static void Reset()
     {
-        stormRadius = 15;
+        stormRadius = 30;
     }
 }
