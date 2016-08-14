@@ -38,6 +38,11 @@ public class PlayerInputProcessor : MonoBehaviour
         rb.AddForce(f);
 
         var v = rb.velocity;
+        if(Mathf.Abs(rb.angularVelocity)>50)
+        {
+            return;
+        }
+
         var newAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.localEulerAngles = new Vector3(0, 0, newAngle);
     }
