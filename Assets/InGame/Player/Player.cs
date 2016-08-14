@@ -15,13 +15,14 @@ public class Player : NetworkBehaviour
     public GameObject[] modelsByColor;
     public PlayerItemShooter itemShooter;
 
-	public CameraMove mainCamera;
+    public CameraMove mainCamera;
 
     [HideInInspector]
     public int serverPlayerId;
 
     void Awake()
     {
+        networkId = GetComponent<NetworkIdentity>();
         rb = GetComponent<Rigidbody2D>();
 
     }
@@ -33,22 +34,14 @@ public class Player : NetworkBehaviour
 
         if (networkId != null && networkId.isLocalPlayer)
         {
-            // && networkId.clientAuthorityOwner != null
-            // playerId = networkId.clientAuthorityOwner.connectionId;
-            // playerLocal.playerId = playerId;
             var playerLocal = gameObject.AddComponent<PlayerLocal>();
             playerLocal.player = this;
-
             var inputProcessor = gameObject.AddComponent<PlayerInputProcessor>();
             inputProcessor.player = this;
-
-			mainCamera = Camera.main.GetComponent<CameraMove> ();
-			mainCamera.target = this.transform;
-            // TODO: set control scheme
+            mainCamera = Camera.main.GetComponent<CameraMove>();
+            mainCamera.target = this.transform;
         }
 
-        // TODO: set color from manager
-        RpcSetColor(PlayerColor.R);
         if (OnSpawn != null) OnSpawn(serverPlayerId, this.gameObject);
     }
 
@@ -124,9 +117,16 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdDestroy(NetworkIdentity networkId)
+    public void CmdConnId()
     {
-        NetworkServer.Destroy(networkId.gameObject);
+        var connId = networkId.clientAuthorityOwner.connectionId;
+        RpcConnId(networkId, connId);
     }
-		
+
+    [ClientRpc]
+    private void RpcConnId(NetworkIdentity netId, int connId)
+    {
+        if (networkId == netId)
+            ClientGameManager.inst.myConnId = connId;
+    }
 }
