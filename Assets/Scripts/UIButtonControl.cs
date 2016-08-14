@@ -95,7 +95,6 @@ public class UIButtonControl : MonoBehaviour {
             yield return new WaitForSeconds(1);
         }
 
-        if (Network.isServer)
-            lobby.ServerChangeScene(lobby.playScene);
+        lobby.ServerChangeScene(lobby.playScene);
     }
 }
