@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PlayerLocal : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerLocal : MonoBehaviour
     void TryDestroyByStorm()
     {
         var distance = ((Vector2)transform.position).magnitude;
-        if (distance > stormDistance) Destroy(gameObject);
+        if (distance > stormDistance) player.CmdDie();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -27,6 +28,7 @@ public class PlayerLocal : MonoBehaviour
     {
         Debug.Log("get item: " + itemBox.itemType);
         player.CmdGetItem(itemBox.itemType);
+        NetworkServer.UnSpawn(itemBox.gameObject);
         Destroy(itemBox.gameObject);
     }
 }

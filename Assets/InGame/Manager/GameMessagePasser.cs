@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class GameMessagePasser : NetworkBehaviour
@@ -43,11 +44,10 @@ public class GameMessagePasser : NetworkBehaviour
         hostGameManager.OnPlayerDie(playerId);
     }
 
-    public delegate void WinDelegate(int winnerId);
-    [SyncEvent]
-    public event WinDelegate EventWin;
-    public void SendEventWin(int winnerId)
+    [ClientRpc]
+    public void RpcWin(int winnerId)
     {
-        EventWin(winnerId);
+        // TODO
+        Debug.Log("winner is " + winnerId);
     }
 }

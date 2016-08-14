@@ -33,6 +33,6 @@ public class HostGameManager : NetworkBehaviour
 
     private void Win(int winnerId)
     {
-        GameMessagePasser.inst.SendEventWin(winnerId);
+        GameMessagePasser.inst.RpcWin(winnerId);
     }
 }

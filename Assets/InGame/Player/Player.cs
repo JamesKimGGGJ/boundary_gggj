@@ -58,10 +58,12 @@ public class Player : NetworkBehaviour
         modelsByColor[(int)color].SetActive(true);
     }
 
-    public void Die()
+    [Command]
+    public void CmdDie()
     {
         // TODO:
         // effect
+        NetworkServer.UnSpawn(gameObject);
         Destroy(gameObject);
     }
 
