@@ -427,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &898084812
 AudioSource:
   m_ObjectHideFlags: 0
@@ -437,7 +437,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 96f0dbadcee50c543bfed236501e384e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9be4bfaf5426f824dbace77d81788601, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
