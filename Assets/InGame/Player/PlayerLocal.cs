@@ -13,7 +13,18 @@ public class PlayerLocal : MonoBehaviour
     void TryDestroyByStorm()
     {
         var distance = ((Vector2)transform.position).magnitude;
-        if (distance > GameGlobalVar.stormRadius) player.CmdDie();
+        if (distance > GameGlobalVar.stormRadius)
+        {
+            PlayerInputProcessor input = GetComponent<PlayerInputProcessor>();
+            if(input!=null) Destroy(input);
+            Invoke("DestroyPlayer",1f);
+            FindObjectOfType<CameraMove>().targetIsDead = true;
+        }
+    }
+
+    void DestroyPlayer()
+    {
+        player.CmdDie();
     }
 
     void OnTriggerEnter2D(Collider2D collider)

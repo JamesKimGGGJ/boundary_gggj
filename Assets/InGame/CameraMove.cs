@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraMove : MonoBehaviour {
 	public Transform target;
+	public bool targetIsDead = false;
 
 	private Vector3 centerPoint = Vector3.zero;
 	[SerializeField]
@@ -14,15 +15,10 @@ public class CameraMove : MonoBehaviour {
 
 	private float stormRadius;
 	private float fov;
-
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		
-		if (!target) {
+		if (!target || targetIsDead) {
 			Vector3 zeroDir = Vector3.zero;
 			float zeroVel = 0.0f;
 			Vector3 returnToCenter = Vector3.SmoothDamp (transform.position, centerPoint - Vector3.up * 10f, ref zeroDir, 0.3f);
