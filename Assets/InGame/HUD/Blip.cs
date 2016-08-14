@@ -63,6 +63,11 @@ public class Blip : MonoBehaviour
 
     void LateUpdate()
     {
+        if(target==null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Vector3 scp = map.cam.WorldToScreenPoint(target.transform.position) - new Vector3(Screen.width, Screen.height, 0) / 2;
         Vector2 scpp = new Vector2(scp.x, scp.y);
 
