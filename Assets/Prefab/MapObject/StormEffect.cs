@@ -6,6 +6,7 @@ public class StormEffect : MonoBehaviour
     public GameObject stormElement;
     public float stormSize;
     public float stormElementWidth = 5;
+	public bool forTitle = false;
     private List<GameObject> stormList;
     private float prevStormSize;
     void Awake()
@@ -53,6 +54,12 @@ public class StormEffect : MonoBehaviour
 			float deg = unitDeg * i * Mathf.Rad2Deg;
 			Quaternion quat = Quaternion.Euler(0,0,deg);
 			Vector2 direction = (Vector2)(quat * Vector2.up);
+			if(forTitle)
+			{
+				stormList[i].transform.position = new Vector3(direction.x, 0, direction.y) * stormSize;
+				stormList[i].transform.rotation = Quaternion.Euler(90,-deg,90);
+				continue;
+			}
 			stormList[i].transform.position = direction * stormSize;
 			stormList[i].transform.rotation = Quaternion.Euler(0,0,deg+90);
 		}
