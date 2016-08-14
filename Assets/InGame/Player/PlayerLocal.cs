@@ -3,7 +3,6 @@ using UnityEngine.Networking;
 
 public class PlayerLocal : MonoBehaviour
 {
-    private const float stormDistance = 15;
     public Player player;
 
     void Update()
@@ -14,7 +13,7 @@ public class PlayerLocal : MonoBehaviour
     void TryDestroyByStorm()
     {
         var distance = ((Vector2)transform.position).magnitude;
-        if (distance > stormDistance) player.CmdDie();
+        if (distance > GameGlobalVar.stormRadius) player.CmdDie();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
