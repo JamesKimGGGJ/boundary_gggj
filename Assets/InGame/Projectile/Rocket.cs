@@ -3,9 +3,14 @@ using UnityEngine.Networking;
 
 public class Rocket : NetworkBehaviour
 {
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     public float lifeTime = 7;
     public GameObject prefabExplode;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
@@ -63,8 +68,8 @@ public class Rocket : NetworkBehaviour
     [ClientRpc]
     private void RpcExplode()
     {
-        var explodeFX = Instantiate(prefabExplode, transform.position, Quaternion.identity);
-        Destroy(explodeFX, 3);
+        GameObject explodeFX = EffectSpawner.instance.GetEffect("Explode");
+        explodeFX.transform.position = transform.position;
         DestroyOnNetwork();
     }
 }

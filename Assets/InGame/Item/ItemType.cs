@@ -1,3 +1,4 @@
+using System;
 public enum ItemType
 {
     None,
@@ -10,7 +11,6 @@ public static partial class ItemHelper
 {
     public static ItemType Random()
     {
-        var itemTypes = new[] { ItemType.Rocket };
-        return itemTypes[UnityEngine.Random.Range(0, itemTypes.Length)];
+        return (ItemType)UnityEngine.Random.Range(1,Enum.GetValues(typeof(ItemType)).Length);
     }
 }

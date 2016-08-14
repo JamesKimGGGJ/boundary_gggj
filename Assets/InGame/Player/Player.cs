@@ -87,14 +87,19 @@ public class Player : NetworkBehaviour
         Debug.Log("item: " + itemType);
     }
 
-    [Command]
-    public void CmdRequestFire()
+    public void RequestFire()
     {
         var itemType = PlayerItemManager.inst.Find(serverPlayerId);
-        if (!itemType.HasValue) return;
+        if(!itemType.HasValue) return;
+        itemShooter.ShootMySide(itemType.Value);
+        CmdRequestFire(itemType.Value);
+    }
 
-        itemShooter.ShootServerSide(itemType.Value);
-        RpcResponseFire(serverPlayerId, itemType.Value);
+    [Command]
+    public void CmdRequestFire(ItemType itemType)
+    {
+        itemShooter.ShootServerSide(itemType);
+        RpcResponseFire(serverPlayerId, itemType);
     }
 
     [ClientRpc]

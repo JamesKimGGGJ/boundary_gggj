@@ -34,7 +34,7 @@ public class EffectSpawner : MonoBehaviour
         }
         else
         {
-            GameObject prefab = Resources.Load<GameObject>("Prefabs/Effects/" + effectName);
+            GameObject prefab = Resources.Load<GameObject>(effectName);
             idleEffect = Instantiate(prefab) as GameObject;
             idleEffect.transform.parent = transform;
             effectPool[effectName].Add(idleEffect);

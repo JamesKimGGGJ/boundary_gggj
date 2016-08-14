@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,6 +7,7 @@ public interface IPlayerItemShooter
 {
     void ShootServerSide(Player player);
     void ShootClientSide(Player player);
+    void ShootMySide(Player player);
 }
 
 public class PlayerRocketShooter : IPlayerItemShooter
@@ -31,6 +33,28 @@ public class PlayerRocketShooter : IPlayerItemShooter
     }
 
     public void ShootClientSide(Player player)
+    {
+        // do nothing
+    }
+
+    public void ShootMySide(Player player){}
+}
+
+public class PlayerJetPackShooter : IPlayerItemShooter
+{
+    public void ShootClientSide(Player player)
+    {
+        // effect spawn
+        throw new NotImplementedException();
+    }
+
+    public void ShootMySide(Player player)
+    {
+        // set velocity
+        throw new NotImplementedException();
+    }
+
+    public void ShootServerSide(Player player)
     {
         // do nothing
     }
@@ -73,5 +97,18 @@ public class PlayerItemShooter : MonoBehaviour
         // TODO: fire
         Debug.Log("fire client side: " + itemType);
         shooters[itemType].ShootClientSide(player);
+    }
+
+    public void ShootMySide(ItemType itemType)
+    {
+        if (!shooters.ContainsKey(itemType))
+        {
+            Debug.LogWarning("shooter not found: " + itemType);
+            return;
+        }
+
+        // TODO: fire
+        Debug.Log("fire My side: " + itemType);
+        shooters[itemType].ShootMySide(player);
     }
 }

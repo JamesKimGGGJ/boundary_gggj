@@ -24,7 +24,7 @@ GameObject:
   - 108: {fileID: 108000011294810402}
   - 114: {fileID: 114000013679196818}
   m_Layer: 0
-  m_Name: Tackle
+  m_Name: tackle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
