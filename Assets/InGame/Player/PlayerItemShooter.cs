@@ -73,7 +73,10 @@ public class PlayerColumnShooter : IPlayerItemShooter
     public void ShootClientSide(Player player)
     {
         // effect spawn
-        throw new NotImplementedException();
+        GameObject effect = EffectSpawner.instance.GetEffect("SpawnedColumn");
+        effect.transform.position = player.transform.position;
+        effect.transform.rotation = Quaternion.Euler(0,0,UnityEngine.Random.Range(0f,360f));
+        effect.SetActive(true);
     }
 
     public void ShootMySide(Player player)
