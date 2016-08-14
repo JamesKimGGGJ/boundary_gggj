@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour
 
     public NetworkIdentity networkId;
     public GameObject[] modelsByColor;
+    public PlayerItemShooter itemShooter;
 
     [HideInInspector]
     public int serverPlayerId;
@@ -81,21 +82,19 @@ public class Player : NetworkBehaviour
     public void CmdRequestFire()
     {
         var itemType = PlayerItemManager.inst.Find(serverPlayerId);
-        if (!itemType.HasValue)
-        {
-            Debug.LogWarning("trying to fire but no item");
-            return;
-        }
+        // TODO: debug
+        itemType = ItemType.Rocket;
+        if (!itemType.HasValue) return;
 
+        itemShooter.ShootServerSide(itemType.Value);
         RpcResponseFire(serverPlayerId, itemType.Value);
     }
 
     [ClientRpc]
     private void RpcResponseFire(int playerId, ItemType itemType)
     {
-        // TODO: fire
         var orgItemType = PlayerItemManager.inst.FindAndUnSet(playerId);
         if (itemType != orgItemType) Debug.LogWarning("item type does not match");
-        Debug.Log("fire: " + itemType);
+        itemShooter.ShootClientSide(itemType);
     }
 }

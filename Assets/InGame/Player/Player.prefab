@@ -24,6 +24,7 @@ GameObject:
   - 114: {fileID: 114000011963916780}
   - 50: {fileID: 50000010005464766}
   - 61: {fileID: 61000014266968708}
+  - 114: {fileID: 114000010777811332}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -628,6 +629,20 @@ MonoBehaviour:
     i15: 14
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114000010777811332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010737157334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8855b3487c244ad1b22e156fbc05f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114000010816574490}
+  prefabRocket: {fileID: 1000013357467202, guid: 147b956b029b344e183120ae64efa207,
+    type: 2}
 --- !u!114 &114000010816574490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -640,12 +655,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkId: {fileID: 114000010031772760}
-  playerId: 0
   modelsByColor:
   - {fileID: 1000013610161446}
   - {fileID: 1000012389042990}
   - {fileID: 1000010775774766}
   - {fileID: 1000012497805988}
+  itemShooter: {fileID: 114000010777811332}
+  serverPlayerId: 0
 --- !u!114 &114000011963916780
 MonoBehaviour:
   m_ObjectHideFlags: 1
