@@ -29,7 +29,8 @@ public class Lobby : NetworkLobbyManager{
                 matchMaker.JoinMatch(matchList[matchList.Count - 1].networkId, "", "", "", 0, 1, OnMatchJoined);
             }
             else {
-                Debug.Log("Nothing");
+                matchMaker.CreateMatch("Room", 4, true, "", "", "", 0, 1, OnMatchCreate);
+                //Debug.Log("Nothing");
             }
         }
     }
@@ -38,6 +39,7 @@ public class Lobby : NetworkLobbyManager{
         base.OnMatchJoined(success, extendedInfo, matchInfo);
         if (success)
         {
+            GameObject.Find("button").GetComponent<UIButtonControl>().Ready = true;
             Debug.Log("Joined Success");
             //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
             //client = new NetworkClient();
@@ -55,6 +57,7 @@ public class Lobby : NetworkLobbyManager{
     override public void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo) {
         base.OnMatchCreate(success, extendedInfo, matchInfo);
         Debug.Log("Create");
+        GameObject.Find("button").GetComponent<UIButtonControl>().Ready = true;
         //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
         //NetworkServer.Listen(matchInfo, 7777);
     }
@@ -64,7 +67,7 @@ public class Lobby : NetworkLobbyManager{
         GameObject obj = base.OnLobbyServerCreateLobbyPlayer(conn, playerControllerId);
         return obj;
     }
-
+    
     public override void OnLobbyServerPlayersReady()
     {
         if (maxPlayers <= lobbySlots.Length)
@@ -75,9 +78,7 @@ public class Lobby : NetworkLobbyManager{
                 if (lobbySlots[i] != null)
                     allready &= lobbySlots[i].readyToBegin;
             }
-
-            if (allready)
-               ServerChangeScene(playScene);
+            GameObject.Find("button").GetComponent<UIButtonControl>().AllReady = allready;
         }
     }
 
