@@ -21,10 +21,10 @@ public class ItemSpawner : NetworkBehaviour
         }
     }
 
-    private static Vector2 SamplePosition()
+    private static Vector3 SamplePosition()
     {
         // TODO: radius
-        return new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+        return new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), -0.8f);
     }
 
     private void Spawn()
