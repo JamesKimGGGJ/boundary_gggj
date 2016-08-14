@@ -18,6 +18,11 @@ public class Blip : MonoBehaviour
         Player.OnDie += OnPlayerDie;
     }
 
+    void OnDestroy()
+    {
+        Player.OnDie -= OnPlayerDie;
+    }
+
     IEnumerator Start()
     {
         map = GameObject.Find("Main Camera").GetComponent<Map>();
