@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Lobby : NetworkLobbyManager{
+    private const string roomName = "Room";
     private static Lobby _instance;
     public static Lobby instance
     {
@@ -18,15 +19,12 @@ public class Lobby : NetworkLobbyManager{
             return _instance;
         }
     }
-    public void CreateMatch() {
-        StartMatchMaker();
-        matchMaker.CreateMatch("Room384", 4,true, "", "", "", 0, 1, OnMatchCreate);
-    }
+
     //call this method to find a match through the matchmaker
     public void FindInternetMatch( )
     {
         StartMatchMaker();
-        matchMaker.ListMatches(0, 1, "Room384", false, 0, 1, OnMatchList);
+        matchMaker.ListMatches(0, 1, roomName, false, 0, 1, OnMatchList);
     }
 
     override public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList) {
@@ -36,7 +34,7 @@ public class Lobby : NetworkLobbyManager{
                 matchMaker.JoinMatch(matchList[matchList.Count - 1].networkId, "", "", "", 0, 1, OnMatchJoined);
             }
             else {
-                matchMaker.CreateMatch("Room384", 5, true, "", "", "", 0, 1, OnMatchCreate);
+                matchMaker.CreateMatch(roomName, 5, true, "", "", "", 0, 1, OnMatchCreate);
                 //Debug.Log("Nothing");
             }
         }
@@ -48,13 +46,7 @@ public class Lobby : NetworkLobbyManager{
         {
             GameObject.Find("button").GetComponent<UIButtonControl>().Ready = true;
             Debug.Log("Joined Success");
-            //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
-            //client = new NetworkClient();
-            //client.RegisterHandler(MsgType.Connect, OnConnected);
-            //client.Connect(matchInfo);
-
         }
-            
     }
 
     public void OnConnected(NetworkMessage msg) {
@@ -65,17 +57,8 @@ public class Lobby : NetworkLobbyManager{
         base.OnMatchCreate(success, extendedInfo, matchInfo);
         Debug.Log("Create");
         GameObject.Find("button").GetComponent<UIButtonControl>().Ready = true;
-        //Utility.SetAccessTokenForNetwork(matchInfo.networkId, new NetworkAccessToken(matchInfo.accessToken.GetByteString()));
-        //NetworkServer.Listen(matchInfo, 7777);
     }
 
-    public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
-    {
-        GameObject obj = base.OnLobbyServerCreateLobbyPlayer(conn, playerControllerId);
-        
-        return obj;
-    }
-    
     public override void OnLobbyServerPlayersReady()
     {
         if (maxPlayers <= lobbySlots.Length)

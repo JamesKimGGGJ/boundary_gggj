@@ -35,7 +35,7 @@ public class UIButtonControl : MonoBehaviour {
                 if (lobby.numPlayers > 0)
                 {
                     text.text = startStr;
-                    button.interactable = lobby.numPlayers > 1 ? AllReady : false;
+                    button.interactable = AllReady;
                 }
                 else {
                     text.text = readyStr;
