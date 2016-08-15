@@ -21,6 +21,7 @@ public class UIButtonControl : MonoBehaviour {
     public Messanger msg;
 
     void Start() {
+		lobby = FindObjectOfType<Lobby> ();
         text = gameObject.GetComponentInChildren<Text>();
         button = GetComponent<Button>();
         Ready = false;

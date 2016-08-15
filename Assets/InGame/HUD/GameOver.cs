@@ -18,16 +18,17 @@ public class GameOver : MonoBehaviour {
 			textbox.text = winMessage;
 		else
 			textbox.text = loseMessage;
-		Time.timeScale = 0.2f;
 	}
 
 	public void RestartGame()
 	{
 		Time.timeScale = 1f;
 		var manager = FindObjectOfType<UnityEngine.Networking.NetworkManager>();
-		if(manager!=null)
+		var lobby = FindObjectOfType<Lobby> ();
+		if(manager != null)
 		{
 			Destroy(manager.gameObject);
+			Destroy (lobby.gameObject);
 			UnityEngine.Networking.NetworkManager.Shutdown();
 		}
 		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
