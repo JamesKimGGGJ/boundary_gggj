@@ -92,6 +92,7 @@ public class UIButtonControl : MonoBehaviour {
         int remain;
         start = true;
         button.interactable = false;
+        lobby.closeMatch();
         for (remain = 5; remain > 0; remain--) {
             text.text = secStr_0 + remain + secStr_1;
             yield return new WaitForSeconds(1);

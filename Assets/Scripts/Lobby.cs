@@ -26,7 +26,7 @@ public class Lobby : NetworkLobbyManager{
     public void FindInternetMatch( )
     {
         StartMatchMaker();
-        matchMaker.ListMatches(0, 20, "Room384", false, 0, 1, OnMatchList);
+        matchMaker.ListMatches(0, 1, "Room384", false, 0, 1, OnMatchList);
     }
 
     override public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matchList) {
@@ -36,7 +36,7 @@ public class Lobby : NetworkLobbyManager{
                 matchMaker.JoinMatch(matchList[matchList.Count - 1].networkId, "", "", "", 0, 1, OnMatchJoined);
             }
             else {
-                matchMaker.CreateMatch("Room384", 4, true, "", "", "", 0, 1, OnMatchCreate);
+                matchMaker.CreateMatch("Room384", 5, true, "", "", "", 0, 1, OnMatchCreate);
                 //Debug.Log("Nothing");
             }
         }
@@ -95,6 +95,10 @@ public class Lobby : NetworkLobbyManager{
     {
         _playerId = int.MinValue;
         _instance = null;
+    }
+
+    public void closeMatch() {
+        matchMaker.SetMatchAttributes(matchInfo.networkId, false, 1, OnSetMatchAttributes);
     }
 
     private static int _playerId = int.MinValue;
