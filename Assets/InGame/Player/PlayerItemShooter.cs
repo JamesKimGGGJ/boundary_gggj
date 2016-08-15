@@ -39,7 +39,7 @@ public class PlayerRocketShooter : IPlayerItemShooter
     public void ShootClientSide(Player player)
     {
         // do nothing
-        ads.PlayOneShot(ac, 1.0f);
+        ads.PlayOneShot(ac, 0.6f);
 
     }
 
@@ -104,7 +104,7 @@ public class PlayerColumnShooter : IPlayerItemShooter
         effect.transform.position = player.transform.position;
         effect.transform.rotation = Quaternion.Euler(0,0,UnityEngine.Random.Range(0f,360f));
         effect.SetActive(true);
-        ads.PlayOneShot(ac, 1.0f);
+        ads.PlayOneShot(ac, 30.0f);
     }
 
     public void ShootMySide(Player player)

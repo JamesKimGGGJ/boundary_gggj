@@ -758,8 +758,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4540c4e071555844fadf41d28631b704, type: 3}
   - {fileID: 8300000, guid: b160cc1eb07fa8947b0c3c3b90be8a1d, type: 3}
   - {fileID: 8300000, guid: 76c1f323142098447b18c06758d8e07f, type: 3}
-  - {fileID: 8300000, guid: 455575754e56b3c4eb2bff7d358dd7fe, type: 3}
-  serverPlayerId: 0
+  - {fileID: 8300000, guid: 2ea6aa0719f222f489782b98246ce95c, type: 3}
 --- !u!114 &114000011963916780
 MonoBehaviour:
   m_ObjectHideFlags: 1
