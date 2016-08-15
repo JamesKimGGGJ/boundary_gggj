@@ -359,6 +359,7 @@ GameObject:
   - 114: {fileID: 62300482}
   - 114: {fileID: 62300481}
   - 114: {fileID: 62300483}
+  - 114: {fileID: 62300484}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -517,6 +518,17 @@ MonoBehaviour:
   heightDensity: 5.46
   startDistance: 0
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
+--- !u!114 &62300484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62300475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c60d4b71961841d5be1f433ce26648b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &75637785
 Prefab:
   m_ObjectHideFlags: 0

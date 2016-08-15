@@ -82,9 +82,11 @@ public class UIButtonControl : MonoBehaviour {
             msg.RpcMeg(0,0);
         }
         else {
+            Camera.main.GetComponent<LobbyCameraPan>().enabled = false;
             DOTween.Init();
             Camera.main.transform.DOMove(cameraSecondPosition.position,1).SetEase(Ease.OutCubic);
-            Camera.main.transform.DORotate(cameraSecondPosition.rotation.eulerAngles,1);
+            Camera.main.transform.DORotate(cameraSecondPosition.rotation.eulerAngles,1)
+                .OnComplete(() => Camera.main.GetComponent<LobbyCameraPan>().enabled = true);
             lobby.FindInternetMatch();
             button.interactable = false;
             peopleShadow.SetActive(true);
