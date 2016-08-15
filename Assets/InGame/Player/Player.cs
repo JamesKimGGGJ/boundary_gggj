@@ -80,12 +80,20 @@ public class Player : NetworkBehaviour
         if (coll.gameObject.tag == "Player")
         {
             audiosource.PlayOneShot(audioclips[0], 1.0f);
+            SetTackleEffect();
         }
         // layer number 12 : terrain
         else if (coll.gameObject.layer == 12)
         {
             audiosource.PlayOneShot(audioclips[1], 1.0f);
+            SetTackleEffect();
         }
+    }
+    void SetTackleEffect()
+    {
+        GameObject obj = EffectSpawner.instance.GetEffect("tackle");
+        obj.transform.position = transform.position + Vector3.back * 0.6f;
+        obj.SetActive(true);
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -142,8 +150,16 @@ public class Player : NetworkBehaviour
         if (netId == null) return;
         var itemBox = netId.GetComponent<ItemBox>();
         RpcGetItem(serverPlayerId, itemBox.itemType);
-        itemBox.RpcPlayParticle();
+        RpcPlayParticle(itemBox.transform.position, "ItemGet");
         NetworkServer.Destroy(netId.gameObject);
+    }
+
+    [ClientRpc]
+    public void RpcPlayParticle(Vector3 pos, string effectName)
+    {
+        var getEffect = EffectSpawner.instance.GetEffect(effectName);
+        getEffect.transform.position = pos;
+        getEffect.SetActive(true);
     }
 
     [ClientRpc]

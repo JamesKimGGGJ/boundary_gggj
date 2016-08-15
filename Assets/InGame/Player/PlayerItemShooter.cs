@@ -64,7 +64,7 @@ public class PlayerJetPackShooter : IPlayerItemShooter
         // effect spawn
         GameObject effect = EffectSpawner.instance.GetEffect("JetPack");
         effect.transform.position = player.transform.position + Vector3.forward * 0.6f;
-        Vector2 v = player.GetComponent<PlayerInputProcessor>().GetMoveInput();
+        Vector2 v = player.rb.velocity.normalized;
         float deg = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         effect.transform.rotation = Quaternion.Euler(0,0,deg-90);
         effect.SetActive(true);
@@ -77,7 +77,14 @@ public class PlayerJetPackShooter : IPlayerItemShooter
         var input = player.GetComponent<PlayerInputProcessor>();
         if (input == null) throw new Exception("Player without Input used Item");
         var moveInput = input.GetMoveInput();
-        player.rb.velocity = moveInput.normalized * speed;
+        if(moveInput.magnitude<0.2f)
+        {
+            float mag = player.rb.velocity.magnitude;
+            Vector2 dir = player.rb.velocity.normalized;
+            player.rb.velocity = dir * (speed + mag);
+        }else{
+            player.rb.velocity = moveInput.normalized * speed;
+        }
     }
 
     public void ShootServerSide(Player player)

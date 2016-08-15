@@ -24,10 +24,4 @@ public class ItemBox : NetworkBehaviour
         getEffect.transform.position = transform.position;
         getEffect.SetActive(true);
     }
-
-    [ClientRpc]
-    public void RpcPlayParticle()
-    {
-        PlayParticle();
-    }
 }
