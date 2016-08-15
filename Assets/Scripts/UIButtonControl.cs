@@ -16,6 +16,9 @@ public class UIButtonControl : MonoBehaviour {
     public string secStr_1;
     public Transform cameraSecondPosition;
 
+    public GameObject creditPopUp;
+    public Button creditButton;
+
     Text text;
     Button button;
     public Messanger msg;
@@ -100,5 +103,20 @@ public class UIButtonControl : MonoBehaviour {
         }
 
         lobby.ServerChangeScene(lobby.playScene);
+    }
+
+    public void CreditOn()
+    {
+        creditPopUp.SetActive(true);
+    }
+
+    public void CreditOff()
+    {
+        creditPopUp.SetActive(false);
+    }
+
+    public void CreditButtonInactive()
+    {
+        creditButton.interactable = false;
     }
 }
