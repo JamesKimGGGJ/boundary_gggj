@@ -5,9 +5,6 @@ using UnityEngine.Networking;
 public class ClientGameManager : NetworkBehaviour
 {
     public static ClientGameManager inst;
-
-    private const float stormRaduisDescreaseSpeed = 1;
-    public bool stormRadiusDecreaseEnabled;
     public StormEffect stormEffect;
 
     void Awake()
@@ -32,19 +29,11 @@ public class ClientGameManager : NetworkBehaviour
             Debug.LogWarning("inst not match");
     }
 
-    void Update()
-    {
-        if (stormRadiusDecreaseEnabled)
-        {
-            GameGlobalVar.stormRadius -= Time.deltaTime * stormRaduisDescreaseSpeed;
-            stormEffect.stormSize = GameGlobalVar.stormRadius;
-        }
-    }
-
     [ClientRpc]
-    public void RpcStartRadiusDecrease()
+    public void RpcSetStormRadius(float value)
     {
-        stormRadiusDecreaseEnabled = true;
+        GameGlobalVar.stormRadius = value;
+        stormEffect.stormSize = value;
     }
 
     [ClientRpc]
@@ -57,7 +46,7 @@ public class ClientGameManager : NetworkBehaviour
         {
             win = (Lobby.playerId == winnerId);
         }
-        catch{}
+        catch { }
         GameOver.instance.SetGameOver(win);
     }
 }

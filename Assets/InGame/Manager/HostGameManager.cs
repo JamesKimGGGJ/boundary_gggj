@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class HostGameManager : NetworkBehaviour
 {
+    private const float stormRadiusDecreaseStartTime = 20;
+    private const float stormRaduisDescreaseSpeed = 1;
+
     public static HostGameManager instance;
     public ClientGameManager clientGameManager;
-    private const float stormRadiusDecreaseStartTime = 20;
     private readonly List<int> alivePlayers = new List<int>();
     private readonly List<GameObject> players = new List<GameObject>();
     private AudioSource audiosrc;
@@ -16,15 +19,22 @@ public class HostGameManager : NetworkBehaviour
         instance = this;
         audiosrc = GetComponent<AudioSource>();
     }
+
     void Start()
     {
-        Invoke("StartRaduisDecrease", stormRadiusDecreaseStartTime);
+        StartCoroutine(CoroutineRadiusDecrease());
     }
 
-    private void StartRaduisDecrease()
+    private IEnumerator CoroutineRadiusDecrease()
     {
-        Debug.Log("StartRaduisDecrease");
-        clientGameManager.RpcStartRadiusDecrease();
+        yield return new WaitForSeconds(stormRadiusDecreaseStartTime);
+        while (true)
+        {
+            var delta = Time.deltaTime * stormRaduisDescreaseSpeed;
+            var newRadious = GameGlobalVar.stormRadius - delta;
+            clientGameManager.RpcSetStormRadius(newRadious);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public void OnPlayerSpawn(int playerId, GameObject player)
@@ -37,7 +47,7 @@ public class HostGameManager : NetworkBehaviour
 
         alivePlayers.Add(playerId);
         players.Add(player);
-        Debug.Log("AlivePlayers : "+alivePlayers.Count);
+        Debug.Log("AlivePlayers : " + alivePlayers.Count);
     }
 
     public void OnPlayerDie(int playerId, GameObject player)
@@ -46,10 +56,10 @@ public class HostGameManager : NetworkBehaviour
         audiosrc.Play();
 
         Debug.Log("Player " + playerId + " Died");
-        Debug.Log("AlivePlayers : "+alivePlayers.Count);
-        if(!alivePlayers.Remove(playerId))
+        Debug.Log("AlivePlayers : " + alivePlayers.Count);
+        if (!alivePlayers.Remove(playerId))
             Debug.LogWarning("No player died but someone died");
-        
+
         players.Remove(player);
         if (alivePlayers.Count == 1)
         {
